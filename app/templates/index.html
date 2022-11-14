@@ -1,8 +1,16 @@
+<!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{title}} - microblog</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/cardStyles.css') }}" />
+  
   </head>
   <body>
-      <h1>Hello, {{user.nickname}}!</h1>
+    {% extends "card.html" %}
+    {% block content %}
+    {% endblock %}
+    <h1>Hello, {{user.nickname}}!</h1>
   </body>
 </html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{{title}} <br> {{content}}
+    <form action="/create_post" method="post">
+        <input type="text" placeholder="Введите название поста" name="title">
+        <textarea cols="100" rows="10" placeholder="Описание" name="content"></textarea>
+        <input type="text" placeholder="Введите имя файла" name="filename">
+        <input type="submit" value="Создать">
+    </form>
+</body>
+</html>

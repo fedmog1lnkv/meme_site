@@ -1,1 +1,1 @@
-from image import post_image
+from .image import post_image

@@ -1,4 +1,5 @@
 from flask import Flask
+from . import sql
 
 app = Flask(__name__)
 

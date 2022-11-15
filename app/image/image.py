@@ -8,7 +8,7 @@ import json
 # https://fedor223.imgbb.com/
 
 def post_image(file_image, id_post):
-    file_image = f"images_from_form/{file_image}"
+    file_image = f"app/image/images_from_form/{file_image}"
     optimize_image(file_image)
     with open(file_image, "rb") as image:
         url = "https://api.imgbb.com/1/upload"
@@ -35,6 +35,7 @@ def resize_image(file_image):
 
 
 def remove_metadata(file_image):
+    print(file_image)
     image = Image.open(file_image)
     data = list(image.getdata())
     image_without_exif = Image.new(image.mode, image.size)
@@ -49,3 +50,4 @@ def get_url(json_res):
         data_response = json_res2.get('data')
         url = data_response.get('url_viewer')
     return url
+

@@ -45,6 +45,9 @@ a{
   width: 100%;
   z-index: 10;
   background-color: #486a8d ;
+
+
+  /* box-shadow: -5px -5px 9px rgba(255,255,255,0.45), 5px 5px 9px rgba(94,104,121,0.3); */
 }
 
 .header__container{
@@ -543,6 +546,11 @@ h1 {
 	padding: 40px 30px;
 	box-shadow: 0px 0px 25px 6px rgba(0,0,0,0.1);
   border-radius: 10px;
+
+
+
+  box-shadow: -5px -5px 9px rgba(255,255,255,0.45), 5px 5px 9px rgba(94,104,121,0.3);
+  
 }
 
 /* Copy this style form on your website */
@@ -635,6 +643,9 @@ h3 {
 	margin: 5px;
 	overflow: hidden;
 	padding-top: 15px;
+
+
+
 }
 .brise-input input {
 	width: 100%;
@@ -675,6 +686,10 @@ h3 {
 	top: 45%;
 	transition: ease-out .15s;
 	color: #999;
+
+
+  box-shadow: -5px -5px 9px rgba(255,255,255,0.45), 5px 5px 9px rgba(94,104,121,0.3);
+
 }
 
 /* End Inputs */
@@ -688,6 +703,10 @@ h3 {
 	position: relative;
 	overflow: hidden;
 	padding-top: 15px;
+
+  /* box-shadow: -5px -5px 9px rgba(255,255,255,0.45), 5px 5px 9px rgba(94,104,121,0.3); */
+
+
 }
 .brise-text textarea {
 	width: 100%!important;
@@ -700,6 +719,10 @@ h3 {
 	position: relative;
 	z-index: 5;
 	background: none;
+
+
+  box-shadow: -5px -5px 9px rgba(255,255,255,0.45), 5px 5px 9px rgba(94,104,121,0.3);
+
 }
 .brise-text label {
 	position: absolute;
@@ -733,6 +756,9 @@ h3 {
 	transition: .15s;
 	border: none;
   border-radius: 10px;
+
+  box-shadow: -5px -5px 9px rgba(255,255,255,0.45), 5px 5px 9px rgba(94,104,121,0.3);
+
 }
 .brise-upload label:hover,.brise-btn:hover{
 	background: #659cd2;

@@ -5,11 +5,149 @@
   box-sizing: border-box;
 }
 
+html,
+body{
+    height: 100%;
+    line-height: 1;
+    font-size: 16px;
+    background-color: #333;
+    color: #fff;
+    font-family: sans-serif;
+    padding: 0;
+    margin: 0;
+    background: linear-gradient(90deg, #edc0bf 0,#c4caef 58%);
+
+
+}
+
+body._lock{
+    overflow: hidden;
+}
+
+ul,
+ol,
+li{
+    list-style: none;
+    padding: 0;
+    margin: 0; 
+}
+
+a{
+  text-decoration: none;
+}
+   
+/* Header */
+
+.header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  background-color: rgb(125, 111, 134);
+}
+
+.header__container{
+  max-width: 1200px;
+  margin: 0px auto;
+  display: flex;
+  padding: 0px 30px;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 70px;
+}
+
+.header__logo{
+  border-radius: 50%;
+  background-color: #fff;
+  position: relative;
+  z-index: 5;
+  width: 50px;
+  height: 50px;
+}
+
+.header__logo img{
+  border-radius: 50%;
+ /* background-color: #fff;*/
+  position: relative;
+  z-index: 5;
+  width: 50px;
+  height: 50px;
+}
+/*
+.header__menu{
+
+}
+
+.menu{
+
+}
+*/
+
+.menu__icon{
+  display: none;
+}
+/*
+.menu_body{
+
+}
+
+.menu__list{
+
+}
+*/
+.menu__list > li{
+  position: relative;
+  margin: 0px 0px 0px 20px;
+}
+
+.menu__link{
+  color: #fff;
+  font-size: 18px;
+}
+
+.menu__link:hover{
+  text-decoration: underline;
+}
+
+.menu__sub-list{
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #000;
+  border-radius: 20px;
+  padding: 15px;
+  min-width: 200px;
+}
+
+.menu__sub-list li{
+  margin: 0px 0px 10px 0px;
+}
+
+.menu__sub-list li:last-child{
+  margin: 0;
+}
+
+.menu__sub-link{
+  color: #fff;
+}
+
+.menu__sub-link:hover{
+  text-decoration: underline;
+}
+
+.menu__arrow{
+  display: none;
+}
+
+/* Header */
 .section-outer{
   padding-left: 20px;
   padding-right: 20px;
-  margin-bottom: 70px;
+  /* margin-bottom: 70px; */
+  margin-top: 100px;
 }
+
 
 .section-inner {
   max-width: 1000px;
@@ -100,13 +238,13 @@
 /* *******Likes**************** */
 .likes{
   display: flex;
-  justify-content: flex-start;
+  justify-content:end;
   /* align-items: center; */
   flex-basis: 100%;
   padding-left: 5%;
   padding-right: 5%;
   margin-bottom: 5px;
-
+  float: right;
 
   align-items: center;
   /* background: rgba(255, 255, 255, .3); */
@@ -121,7 +259,9 @@
 .like{
   display: flex;
   justify-content: center;
-  /* text-align: center; */
+  text-align: center;
+  width: 20px;
+
 }
 
 .like img{
@@ -131,6 +271,12 @@
 }
 
 .like span{
-  font-size: 20px;
+  font-size: 50px;
   font-family: 'Open Sans';
+  color: gray;
 }
+
+/* .svg_like{
+  width: 20px;
+} */
+

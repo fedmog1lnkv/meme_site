@@ -86,3 +86,25 @@ if (menuLinks.length > 0){
     }
 }
 
+// /////////////////////////////////////////
+console.log(123)
+// function like_color() {
+//   document.querySelector(".like_color").classList.toggle('image_like_red');
+// }
+
+let like_buttons = document.querySelectorAll(".like_color");
+console.log(like_buttons)
+
+for (let element of like_buttons){
+  element.addEventListener("click", function() {
+    element.classList.toggle('image_like_red');
+  })
+}
+
+// ///////////////////////////////////////////
+
+
+$('.brise-upload > label').find('input').change(function() {
+  var file = this.files;
+$('.brise-upload > label').text('Selected file: ' + file[0].name);
+})

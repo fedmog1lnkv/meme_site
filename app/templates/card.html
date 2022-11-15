@@ -4,12 +4,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{title}} - microblog</title>
-</head>
+  </head>
   <body>
-
     <header class="header">
       <div class="header__container">
-          <a href="index.html" class="header__logo">
+          <a href="#" class="header__logo">
               <img src="#">
           </a>
           <div class="header__menu menu">
@@ -19,65 +18,63 @@
               <nav class="menu__body">
                   <ul class="menu__list">
                       <li>
-                          <a href="#" class="menu__link">Лента мемов</a>
+                          <a href="#" class="menu__link">Лента новостей</a>
                       </li>
+                      <li><a data-goto=".page__section_2" href="" class="menu__link">Избранное</a></li>
+                      
                       <li>
-                        <a data-goto=".page__section_2" href="#" class="menu__link">Избранное</a>
+                          <a  href="/create_post" class="menu__link">Создание поста</a>
                       </li>
+
+
                   </ul>
               </nav>
           </div>
       </div>
   </header>
 
-
-    {%for i in range(0, 3)%}
+    {%for post in posts%}
     <div class="section-outer">
       <div class="section-inner">
-    <div class="card">
-      <div class="image">
-        <img src="{{ url_for('static', filename='images/mem1.png') }}" class="picture">
-      <div class="likes">
-        <div class="like">
-          <!-- <img src="{{ url_for('static', filename='images/like.png') }}">
-          <span>20</span> -->
-          <!-- <img src="{{ url_for('static', filename='images/like1.svg') }}" class="svg_like"> -->
-          <span onclick="like_color()">&#10084;</span>
-        </div>
-        <!-- <div class="like">
-          <img src="{{ url_for('static', filename='images/dislike.png') }}">
-          <span>10</span>
-        </div> -->
-
-
-
-
-
-      </div>
-      </div>
-      <div class="info">
-        <div class="title">
-          <p>Когда ушёл после 9 класса</p>
-        </div>
-      <div class="comments">
-        {%for i in range(0, 3)%}
-        <div class="one_comment">
-          <div class="comment_image">
-            <img src="https://avatars.mds.yandex.net/i?id=60d0391dc5bcbb06d255eb50c0ecd56900ddbbef-5987336-images-thumbs&n=13" class="picture">
+        <div class="card">
+          <div class="image">
+            <div class="title_image">
+              <p>{{post.name_post}}</p>
+            </div>
+            <div class="image_image">
+              <img src="{{post.image}}" />
+            </div>
+            <div class="image_like">             
+              <span class="like_color">&#10084;</span>
+              <span>{{post.like_count}}</span>
+            </div>
           </div>
-          <div class="comment_feed">
-            <span>Рили ржака OMG</span>
+          <div class="info">
+            <!-- <div class="title">
+              <p>{{post.name_post}}</p>
+            </div> -->
+            <div class="comments">
+              <!-- {%for post in posts%} -->
+              {%for comment in post.comments%}
+              <div class="one_comment">
+                <div class="comment_image">
+                  <img
+                    src="https://avatars.mds.yandex.net/i?id=60d0391dc5bcbb06d255eb50c0ecd56900ddbbef-5987336-images-thumbs&n=13"
+                    class="picture"
+                  />
+                </div>
+                <div class="comment_feed">
+                  <span>{{comment}}</span>
+                </div>
+              </div>
+              <!-- {%endfor%} -->
+              {%endfor%}
+            </div>
           </div>
         </div>
-        {%endfor%}
-      </div>
-
       </div>
     </div>
-  </div>
-</div>
-{%endfor%}
-<script src="{{url_for('static', filename='js/like.js')}}"></script>
-
+    {%endfor%}
+    <script src="{{url_for('static', filename='js/like.js')}}"></script>
   </body>
 </html>

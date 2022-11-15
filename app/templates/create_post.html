@@ -1,16 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/cardStyles.css') }}" />
+
     <title>Title</title>
-</head>
-<body>
-{{title}} <br> {{content}}
-    <form action="/create_post" method="post">
-        <input type="text" placeholder="Введите название поста" name="title">
-        <textarea cols="100" rows="10" placeholder="Описание" name="content"></textarea>
-        <input type="text" placeholder="Введите имя файла" name="filename">
-        <input type="submit" value="Создать">
-    </form>
-</body>
+  </head>
+  <body>
+    <!-- {{title}} <br />
+    {{content}} -->
+
+
+    <header class="header">
+      <div class="header__container">
+          <a href="#" class="header__logo">
+              <img src="#">
+          </a>
+          <div class="header__menu menu">
+              <div class="menu__icon">
+                  <span></span>
+              </div>
+              <nav class="menu__body">
+                  <ul class="menu__list">
+                      <li>
+                          <a href="#" class="menu__link">Лента новостей</a>
+                      </li>
+                      <li><a data-goto=".page__section_2" href="" class="menu__link">Избранное</a></li>
+                      
+                      <li>
+                          <a  href="/create_post" class="menu__link">Создание поста</a>
+                      </li>
+
+
+                  </ul>
+              </nav>
+          </div>
+      </div>
+  </header>
+
+    <div class="section-outer">
+      <div class="section-iiner">
+
+
+          <!-- <form action="/create_post" method="post">
+            <input type="text" placeholder="Введите название поста" name="title" />
+            <textarea cols="100" rows="10" placeholder="Описание" name="content"></textarea>
+            <input type="text" placeholder="Введите имя файла" name="filename" />
+            <input type="submit" value="Создать" />
+          </form> -->
+
+
+
+
+
+        <div class="input-block">
+          <h1>Создание мема</h1>
+          
+        <!-- 	Copy this form on your website -->
+          <form id="brise-form" action="/create_post" method="post">
+          <h3>Custom inputs:</h3>
+          <div class="wrap-line">
+            <!-- Inputs -->
+            <div class="brise-input">
+              <input type="text" placeholder="Введите название поста" name="title" required>
+              <!-- <label>title</label> -->
+              <span class="line"></span>
+            </div>
+            <div class="brise-input">
+              <input type="text" placeholder="Введите имя файла" name="filename" required>
+              <!-- <label>filename</label> -->
+              <span class="line"></span>
+            </div>
+            <!-- Inputs -->
+          </div>
+          <h3>Custom textarea:</h3>
+          <!-- Textarea -->
+          <div class="brise-text">
+            <textarea placeholder="Описание" name="content" id="" cols="30" rows="10" required></textarea>
+            <!-- <label>Message</label> -->
+          </div>
+          <!-- Tetarea -->
+
+          <h3>Custom upload button:</h3>
+          <!-- Upload file button -->
+          <div class="brise-upload">
+            <label>
+              <input type="file" name="file" accept="">
+              <span class="label">Upload file</span>
+            </label>
+          </div>
+          <!-- Upload file button -->
+          <h3>And simply submit:</h3>
+          <!-- <input class="brise-btn" type="submit" value="Создать" /> -->
+          <button type="submit" value="Создать" class="brise-btn">Submit</button>
+        </form>
+        
+        <!-- 	Copy this form on your website -->
+          
+
+        </div>
+
+
+      </div>
+    </div>
+    <script src="{{url_for('static', filename='js/like.js')}}"></script>
+
+  </body>
 </html>

@@ -111,51 +111,78 @@ for (let element of like_buttons){
 
 ///////////////////////////////////////////////////////////////
 
-let comments = [];
-// loadComments();
+// let comments = [];
+// // loadComments();
 
-document.getElementById('comment-add').onclick = function(){
-    event.preventDefault();
-    let commentName = document.getElementById('comment-name');  // получили элементы формы
-    let commentBody = document.getElementById('comment-body');  // получили элементы формы
+// document.getElementById('comment-add').onclick = function(){
+//     event.preventDefault();
+//     let commentName = document.getElementById('comment-name');  // получили элементы формы
+//     let commentBody = document.getElementById('comment-body');  // получили элементы формы
 
-    let comment = {
-        name : commentName.value, //получили имя того, кто написал комментарий
-        body : commentBody.value, // получили комментарий
-        time : Math.floor(Date.now() / 1000) // получили время комментария
+//     let comment = {
+//         name : commentName.value, //получили имя того, кто написал комментарий
+//         body : commentBody.value, // получили комментарий
+//         time : Math.floor(Date.now() / 1000) // получили время комментария
+//     }
+
+//     commentName.value = ''; //очистили форму элемента
+//     commentBody.value = ''; //очистили форму
+
+//     comments.push(comment); // добавляем в массив наш массив на 121 строке
+//     showComments();// выводим на экран
+// }
+
+
+
+// function showComments (){
+//     let commentField = document.getElementById('comment-field');
+//     let out = '';
+//     comments.forEach(function(item){
+//         // out += `<p class="text-right small"><em>${timeConverter(item.time)}</em></p>`;//время
+//         // out += `<p class="alert alert-primary" role="alert">${item.name}</p>`;//имя
+//         out += `<p class="alert alert-success" >${item.body}</p>`;//комментарий
+//     });
+//     commentField.innerHTML = out;
+// }
+
+// //конвертируем время
+// function timeConverter(UNIX_timestamp){
+//     var a = new Date(UNIX_timestamp * 1000);
+//     var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+//     var year = a.getFullYear();
+//     var month = months[a.getMonth()];
+//     var date = a.getDate();
+//     var hour = a.getHours();
+//     var min = a.getMinutes();
+//     var sec = a.getSeconds();
+//     var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+//     return time;
+//   }
+//   console.log(comments)
+///////////////////////////////////////////////////
+
+function theme() {
+  const toggleTheme = document.querySelector('.toggle-theme')
+  let el = document.documentElement
+
+  toggleTheme.addEventListener('click', () =>{
+    if (el.hasAttribute('data-theme')){
+      el.removeAttribute('data-theme')
+      localStorage.removeItem('theme')
     }
+    else{
+      el.setAttribute('data-theme', 'dark')
+      localStorage.setItem('theme', 'dark')
+    }
+  })
 
-    commentName.value = ''; //очистили форму элемента
-    commentBody.value = ''; //очистили форму
-
-    comments.push(comment); // добавляем в массив наш массив на 121 строке
-    showComments();// выводим на экран
-}
-
-
-
-function showComments (){
-    let commentField = document.getElementById('comment-field');
-    let out = '';
-    comments.forEach(function(item){
-        // out += `<p class="text-right small"><em>${timeConverter(item.time)}</em></p>`;//время
-        // out += `<p class="alert alert-primary" role="alert">${item.name}</p>`;//имя
-        out += `<p class="alert alert-success" >${item.body}</p>`;//комментарий
-    });
-    commentField.innerHTML = out;
-}
-
-//конвертируем время
-function timeConverter(UNIX_timestamp){
-    var a = new Date(UNIX_timestamp * 1000);
-    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    var year = a.getFullYear();
-    var month = months[a.getMonth()];
-    var date = a.getDate();
-    var hour = a.getHours();
-    var min = a.getMinutes();
-    var sec = a.getSeconds();
-    var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
-    return time;
+  if (localStorage.getItem('theme')){
+    el.setAttribute('data-theme', 'dark')
   }
-  console.log(comments)
+}
+
+theme()
+
+console.log(toggleTheme)
+console.log(123)
+////////////////////////////////

@@ -14,8 +14,9 @@
 
     <header class="header">
       <div class="header__container">
-          <a href="#" class="header__logo">
-              <img src="#">
+        <button class="toggle-theme"></button>
+          <a href="/" class="header__logo">
+              <img src="../static/images/logo.png">
           </a>
           <div class="header__menu menu">
               <div class="menu__icon">
@@ -24,7 +25,7 @@
               <nav class="menu__body">
                   <ul class="menu__list">
                       <li>
-                          <a href="#" class="menu__link">Лента новостей</a>
+                          <a href="/" class="menu__link">Лента новостей</a>
                       </li>
                       <li><a data-goto=".page__section_2" href="" class="menu__link">Избранное</a></li>
                       
@@ -59,7 +60,7 @@
           
         <!-- 	Copy this form on your website -->
           <form id="brise-form" action="/create_post" method="post">
-          <h3>Custom inputs:</h3>
+  
           <div class="wrap-line">
             <!-- Inputs -->
             <div class="brise-input">
@@ -74,7 +75,7 @@
             </div>
             <!-- Inputs -->
           </div>
-          <h3>Custom textarea:</h3>
+
           <!-- Textarea -->
           <div class="brise-text">
             <textarea placeholder="Описание" name="content" id="" cols="30" rows="10" required></textarea>
@@ -82,7 +83,7 @@
           </div>
           <!-- Tetarea -->
 
-          <h3>Custom upload button:</h3>
+     
           <!-- Upload file button -->
           <div class="brise-upload">
             <label>
@@ -91,7 +92,7 @@
             </label>
           </div>
           <!-- Upload file button -->
-          <h3>And simply submit:</h3>
+ 
           <!-- <input class="brise-btn" type="submit" value="Создать" /> -->
           <button type="submit" value="Создать" class="brise-btn">Submit</button>
         </form>

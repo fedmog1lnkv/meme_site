@@ -281,7 +281,7 @@ body._touch .menu__list > li._active .menu__arrow{
       top: 0;
       left: 0;
       height: 70px;
-      background-color: rgb(125, 111, 134);
+      background-color: #486a8d ;
       z-index: 2;
   }
 
@@ -332,12 +332,13 @@ body._touch .menu__list > li._active .menu__arrow{
 
 .card{
   max-width: 1000px; 
-  background-color: #b8b8bb;
+  background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 10px auto;
-  border-radius: 20px;
+  border-radius: 10px;
+  box-shadow: -5px -5px 9px rgb(255 255 255 / 45%), 5px 5px 9px rgb(94 104 121 / 30%);
 }
 
 .image{
@@ -348,6 +349,13 @@ body._touch .menu__list > li._active .menu__arrow{
   padding: 30px;
   border-radius: 20px;
   overflow: hidden;
+
+
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8.2px);
+  -webkit-backdrop-filter: blur(8.2px);
 }
 
 .title_image{
@@ -380,15 +388,26 @@ body._touch .menu__list > li._active .menu__arrow{
    width: 500px;
    flex-wrap: wrap;
    align-items: center;
-   background: rgba(255, 255, 255, .3);
-   box-shadow: 0 0.75rem 2rem 0 rgb(0 0 0 / 10%);
+   /* background: rgba(255, 255, 255, .3);
+   box-shadow: 0 0.75rem 2rem 0 rgb(0 0 0 / 20%); */
+   /* box-shadow: -5px -5px 9px rgb(255 255 255 / 25%), 5px 5px 9px rgb(94 104 121 / 20%); */
+  /* background-color: #62BAD3; */
    margin: 10px;
    justify-content: center;
-   border-radius: 20px;
+   border-radius: 10px;
    /* flex-direction: column; */
    color: black;
 
    min-height: 490px;
+
+
+
+    /* background: rgba(255, 255, 255, 0.25);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8.2px);
+    -webkit-backdrop-filter: blur(8.2px); */
+
 }
 
 .info p:first-child{

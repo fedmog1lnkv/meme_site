@@ -44,7 +44,7 @@ body{
     margin: 0;
     background:var(--main-bg);
 
-    transition: 0.4s linear;
+  /*  transition: 0.4s linear;*/
 
 
 }
@@ -74,7 +74,7 @@ a{
   width: 100%;
   z-index: 10;
   background-color: var(--card-color);
-  transition: 0.4s linear;
+ /* transition: 0.4s linear;*/
 
 
   /* box-shadow: -5px -5px 9px rgba(255,255,255,0.45), 5px 5px 9px rgba(94,104,121,0.3); */
@@ -139,7 +139,7 @@ a{
 .menu__link{
   color: var(--text-color);
   font-size: 18px;
-  transition: 0.4s linear;
+  /*transition: 0.4s linear;*/
 }
 
 .menu__link:hover{
@@ -316,7 +316,7 @@ body._touch .menu__list > li._active .menu__arrow{
       height: 70px;
       background-color: var(--card-color) ;
       z-index: 2;
-      transition: 0.4s linear;
+   /*   transition: 0.4s linear;*/
   }
 
   .menu__list > li{
@@ -373,7 +373,7 @@ body._touch .menu__list > li._active .menu__arrow{
   margin-top: 10px auto;
   border-radius: 10px;
   box-shadow: var(--card-shadow);
-  transition: 0.4s linear;
+  /*transition: 0.4s linear;*/
 }
 
 .image{
@@ -392,7 +392,7 @@ body._touch .menu__list > li._active .menu__arrow{
   backdrop-filter: blur(8.2px);
   -webkit-backdrop-filter: blur(8.2px);
 
-  transition: 0.4s linear;
+ /* transition: 0.4s linear;*/
 
 
 }
@@ -406,7 +406,7 @@ body._touch .menu__list > li._active .menu__arrow{
   font-family: 'Roboto';
   color: var(--text-color);
 
-  transition: 0.4s linear;
+ /* transition: 0.4s linear;*/
 }
 
 .image img{
@@ -441,7 +441,7 @@ body._touch .menu__list > li._active .menu__arrow{
 
    min-height: 490px;
 
-   transition: 0.4s linear;
+  /* transition: 0.4s linear;*/
 
     /* background: rgba(255, 255, 255, 0.25);
     border-radius: 16px;
@@ -586,7 +586,7 @@ h1 {
 	margin-bottom: 10px;
 	font-size: 25px;
 
-  transition: 0.4s linear;
+ /* transition: 0.4s linear;*/
 }
 .sub {
 	color: #999;
@@ -614,7 +614,7 @@ h1 {
 
   box-shadow: var(--input-shadow);
 
-  transition: 0.4s linear;
+/*  transition: 0.4s linear;*/
   
 }
 
@@ -788,7 +788,7 @@ h3 {
 
   box-shadow: var(--textarea-shadow);
 
-  transition: 0.4s linear;
+ /* transition: 0.4s linear;*/
 
 }
 .brise-text label {
@@ -826,7 +826,7 @@ h3 {
 
   box-shadow: var(--textarea-shadow);
 
-  transition: 0.4s linear;
+  /*transition: 0.4s linear;*/
 
 }
 .brise-upload label:hover,.brise-btn:hover{
@@ -875,5 +875,5 @@ h3 {
   cursor: pointer;
   z-index: 9999999999999;
 
-  transition: 0.4s linear;  
+ /* transition: 0.4s linear;  */
 }

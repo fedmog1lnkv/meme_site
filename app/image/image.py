@@ -7,7 +7,7 @@ import json
 
 # https://fedor223.imgbb.com/
 
-def post_image(file_image, id_post):
+def post_image(file_image):
     file_image = f"app/image/images_from_form/{file_image}"
     optimize_image(file_image)
     with open(file_image, "rb") as image:
@@ -15,7 +15,7 @@ def post_image(file_image, id_post):
         payload = {
             "key": "676833e8ae2349f44aa08932c359446c",
             "image": base64.b64encode(image.read()),
-            "name": id_post,
+            "name": file_image,
         }
         res = requests.post(url, payload)
     json_res = res.text

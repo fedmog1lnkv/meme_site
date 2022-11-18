@@ -32,8 +32,6 @@
                       <li>
                           <a  href="/create_post" class="menu__link">Создание поста</a>
                       </li>
-
-
                   </ul>
               </nav>
           </div>
@@ -59,31 +57,27 @@
           <h1>Создание мема</h1>
           
         <!-- 	Copy this form on your website -->
-          <form id="brise-form" action="/create_post" method="post">
-  
+          <form id="brise-form" action="/create_post" method="post" enctype="multipart/form-data" >
           <div class="wrap-line">
             <!-- Inputs -->
             <div class="brise-input">
-              <input type="text" placeholder="Введите название поста" name="title" required>
+              <input type="text" placeholder="Введите название поста" name="title">
               <!-- <label>title</label> -->
               <span class="line"></span>
             </div>
             <div class="brise-input">
-              <input type="text" placeholder="Введите имя файла" name="filename" required>
+              <input type="text" placeholder="Введите имя файла" name="filename" >
               <!-- <label>filename</label> -->
               <span class="line"></span>
             </div>
             <!-- Inputs -->
           </div>
-
           <!-- Textarea -->
           <div class="brise-text">
-            <textarea placeholder="Описание" name="content" id="" cols="30" rows="10" required></textarea>
+            <textarea placeholder="Описание" name="content" id="" cols="30" rows="10" ></textarea>
             <!-- <label>Message</label> -->
           </div>
           <!-- Tetarea -->
-
-     
           <!-- Upload file button -->
           <div class="brise-upload">
             <label>

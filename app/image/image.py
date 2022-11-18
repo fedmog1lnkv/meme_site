@@ -45,9 +45,10 @@ def remove_metadata(file_image):
 
 def get_url(json_res):
     json_res2 = json.loads(json_res)
+    print(json_res2)
     TypeOfVar = type(json_res2)
     if "dict" in str(TypeOfVar):
         data_response = json_res2.get('data')
-        url = data_response.get('url_viewer')
+        url = data_response.get('url')
     return url
 

@@ -1,16 +1,99 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{{title}} - microblog</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/cardStyles.css') }}" />
+{% extends 'base.html' %}
+
+{% block content %}
+{{ super() }}
+
+	<!--Посты-->
+    {%for i in range(count)%}
+    <div class="section-outer">
+      <div class="section-inner">
+        <div id="const_card" class="const_card card">
+          <div class="image">
+            <div class="title_image">
+			<!-- Заголок мема -->
+              <p>{{posts[i][1]}}</p>
+            </div>
+			<div class="title_image">
+				<!-- Дата публикации мема -->
+				<p>{{times[i]}}</p>
+			</div>
+            <div class="image_image">
+              <img src="{{posts[i][4]}}">
+            </div>
+				<!-- Содержание мема -->
+              <div class="title_image">
+              <p>{{posts[i][2]}}</p> 
+            </div>
+            <div class="image_like">
+              <span class="like_color">&#10084;</span>
+              <!-- <span>{{posts.like_count}}</span> -->
+            </div>
+          </div>
+          <div class="info">
+            <div class="title">
+              <!-- <p>{{posts.name_post}}</p> -->
+            </div>
+           <div class="comments">
+
+			<!--Комментарии-->
+            {%for comment in posts.comments%}
+				<div class="one_comment">
+					<div class="comment_image">
+					<img
+						src="https://avatars.mds.yandex.net/i?id=60d0391dc5bcbb06d255eb50c0ecd56900ddbbef-5987336-images-thumbs&n=13"
+						class="picture"
+					/>
+					</div>
+					<div class="comment_feed">
+					<span>{{comment}}</span>
+					</div>
+				</div>
+            {%endfor%}
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {%endfor%}
   
-  </head>
-  <body>
-    {% extends "card.html" %}
-    {% block content %}
-    {% endblock %}
-    <h1>Hello, {{user.nickname}}!</h1>
-  </body>
-</html>
+
+
+
+
+
+    <!-- <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <h2 class="text-center">Comments</h2>
+        </div>
+        <div class="col-lg-6">
+          <div id="comment-field"></div>
+        </div>
+        <div class="col-lg-6">
+          <form>
+            <div class="form-group">
+              <label for="comment-name">Name:</label>
+              <input type="text" class="form-control" id="comment-name"  placeholder="Введите имя">
+            </div>
+            <div class="form-group">
+              <label for="comment-body">Comment:</label>
+              <textarea type="password" class="form-control" id="comment-body" placeholder="Комментарий"></textarea>
+            </div>
+            <div class="form-group form-check text-right">
+              <button type="submit" id="comment-add" class="btn btn-primary">Отправить</button>
+            </div>
+          </form> 
+        </div>
+      </div>
+    </div> -->
+
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript" src="jquery.timeago.js"></script>
+	<script type="text/javascript" src="jquery.timeago.ru.js"></script>
+	<script type="text/javascript">
+			$(document).ready(function(){
+				jQuery("abbr.timeago").timeago();
+			});
+	</script>
+{% endblock %}

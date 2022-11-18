@@ -11,3 +11,10 @@ CREATE TABLE IF NOT EXISTS posts (
     time integer NOT NULL,
     image blob
 );
+
+CREATE TABLE IF NOT EXISTS users (
+    id integer PRIMARY KEY AUTOINCREMENT,
+    username VARCHAR(120) NOT NULL,
+    password VARCHAR(120) NOT NULL,
+    time integer NOT NULL
+);

@@ -1,26 +1,50 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{{title}} - microblog</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/cardStyles.css') }}" />
-
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	{%for link in css%}
+		<link rel="stylesheet" type="text/css" href="{{ link }}" />
+	{% endfor %}
+	<title>{{title}} - microblog</title>
   </head>
   <body>
-    <nav class="menu__body">
-        <ul class="menu__list">
-            {% for m in menu %}
-                <li>
-                    <a href="{{m.url}}" class="menu__link">{{m.title}}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    </nav>
-    {% endfor %}
-    {% extends "card.html" %}
-    {% block content %}
-    {% endblock %}
-    <h1>Hello, {{user.nickname}}!</h1>
+	
+	{% block header_menu -%}
+	<header class="header">
+		<div class="header__container">
+		<button class="toggle-theme"></button>
+		  <a href="/" class="header__logo">
+			  <img src="../static/images/logo.png">
+		  </a>
+		  <div class="header__menu menu">
+			  <div class="menu__icon">
+				  <span></span>
+			  </div>
+			  <nav class="menu__body">
+				  <ul class="menu__list">
+					<li>
+						<a href="/" class="menu__link">Лента новостей</a>
+					</li>
+					<li>
+						<a data-goto=".page__section_2" href="" class="menu__link">Избранное</a>
+					</li>
+					<li>
+						<a href="/create_post" class="menu__link">Создание поста</a>
+					</li>
+					<li>
+						<a href="/profile" class="menu__link">Профиль</a>
+					</li>
+				  </ul>
+			  </nav>
+		  </div>
+		</div>
+	</header>
+	{% endblock %}
+
+	{% block content -%}
+	{% endblock %}
+
+    <script src="{{url_for('static', filename='js/like.js')}}"></script>
   </body>
 </html>

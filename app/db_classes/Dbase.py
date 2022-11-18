@@ -1,6 +1,48 @@
 import time
 import sqlite3
 
+
+def secondsToDate(second, retMH=False):
+    struct = time.localtime(second)
+    if retMH:
+        return time.strftime('%Y-%m-%d %H:%M', struct)
+    return time.strftime('%Y-%m-%d', struct)
+
+
+def timeAgo(second):
+    second = int(second)
+    if second < 60:
+        if second >= 11 and second <= 20:
+            return f"{int(second)} секунд назад"
+        match second % 10:
+            case 1:
+                return f"{int(second)} секунду назад"
+            case 2 | 3 | 4:
+                return f"{int(second)} секунды назад"
+            case 5 | 6 | 7 | 8 | 9| 0:
+                return f"{int(second)} секунд назад"
+    if second < 60 * 60:
+        if int(second / 60) >= 11 and int(second / 60) <= 20:
+            return f"{int(second / 60)} минут назад"
+        match int(second / 60) % 10:
+            case 1:
+                return f"{int(second / 60)} минуту назад"
+            case 2 | 3 | 4:
+                return f"{int(second / 60)} минуты назад"
+            case 5 | 6 | 7 | 8 | 9| 0:
+                return f"{int(second / 60)} минут назад"
+    if second < 60 * 60 * 60:
+        if int(second / 60 / 60) >= 11 and int(second / 60 / 60) <= 20:
+            return f"{int(second / 60 / 60)} часов назад"
+        match int(second / 60 / 60):
+            case 1:
+                return f"{int(second / 60 / 60)} час назад"
+            case 2 | 3 | 4:
+                return f"{int(second / 60 / 60)} часа назад"
+            case 5 | 6 | 7 | 8 | 9| 0:
+                return f"{int(second / 60 / 60)} часов назад"
+
+
 class FDataBase:
     def __init__(self, db):
         self.__db = db
@@ -29,18 +71,27 @@ class FDataBase:
         return True
 
     def getPosts(self):
-        sql = '''SELECT * FROM posts'''
+        sql = '''SELECT * FROM posts ORDER BY time DESC'''
         try:
             self.__cur.execute(sql)
             res = self.__cur.fetchall()
-            if res: return res
+            times = []
+            for i in range(len(res)):
+                if ((time.time() - res[i][3]) / 60 / 60 / 24) < 1:
+                    times.append(timeAgo(time.time() - res[i][3]))
+                else:
+                    times.append(secondsToDate(res[i][3]))
+
+
+            if res:
+                return res, times
         except:
             print("Ощибка чтения БД")
-        return []
+        return [], []
 
 
     def getPost(self, id):
-        sql = "select * from posts where id=2"
+        sql = f"select * from posts where id={id}"
         try:
             self.__cur.execute(sql)
             print(sql)
@@ -61,3 +112,47 @@ class FDataBase:
         except:
             print("Ощибка чтения БД")
         return False
+
+    def addUser(self, username, pwd):
+        try:
+            tm = time.time()
+            self.__cur.execute('INSERT INTO users VALUES(NULL, ?, ?, ?)', (username, pwd, tm))
+            self.__db.commit()
+        except sqlite3.Error as e:
+            print("Ошибка добавления в БД " + str(e))
+            return str(e)
+
+        return True
+
+    def getUserId(self, id):
+        sql = f"select * from users where id={id}"
+        try:
+            self.__cur.execute(sql)
+            print(sql)
+            res = self.__cur.fetchone()
+            print(res)
+            if res: return res
+        except:
+            print("Ощибка чтения БД")
+        return False
+    def getUserName(self, name):
+        sql = f"select * from users where username='{name}'"
+        try:
+            self.__cur.execute(sql)
+            print(sql)
+            res = self.__cur.fetchone()
+            print(res)
+            if res: return res
+        except:
+            print("Ощибка чтения БД")
+        return False
+class User:
+    def __init__(self, id, dbase):
+        data = dbase.getUserId(id)
+        self.__id = data[0]
+        self.__username = data[1]
+        self.__time = data[3]
+
+    def getAllInfo(self):
+        return [self.__id, self.__username, secondsToDate(self.__time)]
+

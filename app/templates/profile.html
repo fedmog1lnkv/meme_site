@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{ super() }}
+	
+<div class="section-outer">
+		<div class="section-inner">
+			ID пользователя: {{user[0]}}
+			Имя пользователя: {{user[1]}}
+			Дата регистрации: {{user[2]}}
+		</div>
+</div>
+
+{% endblock %}

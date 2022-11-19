@@ -826,6 +826,8 @@ h3 {
 
   box-shadow: var(--textarea-shadow);
 
+  display: block;
+
   /*transition: 0.4s linear;*/
 
 }
@@ -876,4 +878,88 @@ h3 {
   z-index: 9999999999999;
 
  /* transition: 0.4s linear;  */
+}
+
+
+
+
+
+
+
+
+
+
+.input_password{
+  margin: 5px;
+}
+
+.security {
+  position: relative;
+  margin: -14px 1px 8px;
+  width: calc(100% - 2px);
+  overflow: hidden;
+  background-color: #eae9f2;
+
+  max-width: 300px;
+  margin: 0 5px;
+}
+
+.security::before {
+  position: absolute;
+  content: "";
+  width: 4px;
+  height: 4px;
+  top: 0;
+  left: 50%;
+  background-color: #ffffff;
+}
+
+.security::after {
+  position: absolute;
+  content: "";
+  width: 4px;
+  height: 4px;
+  top: 0;
+  left: 90%;
+  background-color: #ffffff;
+}
+
+.security-bar {
+  height: 4px;
+  width: 0;
+  background-color: mediumpurple;
+}
+
+.brise_password input{
+  border-bottom: none;
+}
+
+.heart {
+  padding: 12px 10px;
+  min-width: 40px;
+  min-height: 34px;
+  font-family: inherit;
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: 12px;
+  cursor: pointer;
+  background-image: url(../images/heart.svg);
+  /* background-size: 40px 40x; */
+  background-size: 40px 40px;
+}
+
+.added {
+  background-image: url(../images/closed_heart.svg);
+}
+
+.likes-number {
+  margin-left: 50px;
+  line-height: 14px;
+}
+
+.likes-number{
+  font-size: 40px;
 }

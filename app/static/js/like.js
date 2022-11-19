@@ -1,4 +1,37 @@
 "use strict"
+
+
+let heart = document.querySelectorAll('.heart');
+let likesNumber = document.querySelectorAll('.likes-number');
+
+// console.log(heart)
+// console.log(likesNumber)
+// heart.onclick = function () {
+//   if (heart.classList.contains('added')) {
+//     likesNumber.textContent--;
+//   } else {
+//     likesNumber.textContent++;
+//   }
+  
+//   heart.classList.toggle('added');
+// };
+
+// let like_buttons = document.querySelectorAll(".like_color");
+// console.log(like_buttons)
+
+for (let element of heart){
+  element.addEventListener("click", function() {
+    // if (element.classList.contains('added')) {
+    //   likesNumber.textContent--;
+    // } else {
+    //   likesNumber.textContent++;
+    // }
+    
+    element.classList.toggle('added');
+  })
+}
+
+
 const isMobile = {
     Android: function(){
         return navigator.userAgent.match(/Android/i);
@@ -92,14 +125,14 @@ console.log(123)
 //   document.querySelector(".like_color").classList.toggle('image_like_red');
 // }
 
-let like_buttons = document.querySelectorAll(".like_color");
-console.log(like_buttons)
+// let like_buttons = document.querySelectorAll(".like_color");
+// console.log(like_buttons)
 
-for (let element of like_buttons){
-  element.addEventListener("click", function() {
-    element.classList.toggle('image_like_red');
-  })
-}
+// for (let element of like_buttons){
+//   element.addEventListener("click", function() {
+//     element.classList.toggle('image_like_red');
+//   })
+// }
 
 // ///////////////////////////////////////////
 
@@ -183,6 +216,67 @@ function theme() {
 
 theme()
 
-console.log(toggleTheme)
-console.log(123)
+// console.log(toggleTheme)
+// console.log(123)
 ////////////////////////////////
+
+let password = document.querySelector('.password');
+let securityBar = document.querySelector('.security-bar');
+let showPassword = document.querySelector('.show-password');
+console.log(password)
+console.log(showPassword)
+console.log(123)
+
+
+// let heart = document.querySelector('.heart');
+// let likesNumber = document.querySelector('.likes-number');
+
+// console.log(heart)
+
+
+showPassword.onchange = function () {
+  if (showPassword.checked) {
+    password.type = 'text';
+  } else {
+    password.type = 'password';
+  }
+};
+
+
+
+
+password.oninput = function () {
+  let passLength = password.value.length;
+  securityBar.style.width = passLength * 10 + '%';
+  if (passLength <= 5) {
+    securityBar.style.backgroundColor = 'red';
+  } else if (passLength > 5 && passLength < 10) {
+    securityBar.style.backgroundColor = 'gold';
+  } else {
+    securityBar.style.backgroundColor = 'green';
+  }
+
+};
+
+
+
+
+
+{/* <form action="{{url_for('login')}}" method="post" class="login_form">
+<div class="line">
+  <label for="username">Имя:</label>
+  <input type="text" name="username" id="username">
+</div>
+<div class="line">
+  <label for="pwd">Пароль:</label>
+  <input type="text" name='pwd', id='pwd'>
+</div>
+<div class="wrap-line">
+  <div class="brise-input">
+    <label for="save_me">Запомнить меня</label>
+    <input type="radio" name="rb_me">
+    <span class="line"></span>
+  </div>
+</div>
+<input type="submit" value="Создать">
+</form> */}

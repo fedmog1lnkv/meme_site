@@ -1,28 +1,49 @@
-{% extends 'base.html' %}
-
-{% block content %}
-{{ super() }}
+{% extends 'base.html' %} {% block content %} {{ super() }}
 
 <div class="section-outer">
-	<div class="section-inner">
-		<form action="{{url_for('login')}}" method="post" class="login_form">
-		<div class="line">
-			<label for="username">Имя:</label>
-			<input type="text" name="username" id="username">
-		</div>
-		<div class="line">
-			<label for="pwd">Пароль:</label>
-			<input type="text" name='pwd', id='pwd'>
-		</div>
-		<div class="wrap-line">
-			<div class="brise-input">
-				<label for="save_me">Запомнить меня</label>
-				<input type="radio" name="rb_me">
-				<span class="line"></span>
-			</div>
-		</div>
-		<input type="submit" value="Создать">
-		</form>
-	</div>
+  <div class="section-inner">
+    <!-- <form action="{{url_for('login')}}" method="post" class="login_form">
+      <div class="line">
+        <label for="username">Имя:</label>
+        <input type="text" name="username" id="username" />
+      </div>
+      <div class="line">
+        <label for="pwd">Пароль:</label>
+        <input type="text" name="pwd" , id="pwd" />
+      </div>
+      <div class="wrap-line">
+        <div class="brise-input">
+          <label for="save_me">Запомнить меня</label>
+          <input type="radio" name="rb_me" />
+          <span class="line"></span>
+        </div>
+      </div>
+      <input type="submit" value="Создать" />
+    </form> -->
+
+    <div class="input-block">
+      <h1>Логин</h1>
+      <form action="{{url_for('login')}}" method="post" class="login_form">
+        <div class="wrap-line">
+          <div class="brise-input">
+            <!-- <input type="text" placeholder="Введите имя пользователя" name="username"> -->
+            <input type="text" placeholder="Введите имя пользователя" name="username" id="username" />
+            <span class="line"></span>
+          </div>
+        </div>
+        <div class="wrap-line">
+          <div class="brise-input">
+            <!-- <input type="password" placeholder="Введите пароль ещё раз" name="pwd_ag"> -->
+            <input type="text" name="pwd" , id="pwd" placeholder="Введите пароль" />
+            <span class="line"></span>
+          </div>
+        </div>
+        <input name="rb_me" class="input_password" type="checkbox">
+        <label class="checkbox-label">Запомнить меня</label>
+
+    <button type="submit" value="Создать" class="brise-btn">Отправить</button>
+    </form>
+  </div>
+</div>
 </div>
 {% endblock %}

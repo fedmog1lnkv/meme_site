@@ -5,9 +5,20 @@
 	
 <div class="section-outer">
 		<div class="section-inner">
-			ID пользователя: {{user[0]}}
-			Имя пользователя: {{user[1]}}
-			Дата регистрации: {{user[2]}}
+			<div>
+				ID пользователя: {{user[0]}}
+			</div>
+			<div>
+				Имя пользователя: {{user[1]}}
+			</div>
+			<div>
+				Дата регистрации: {{user[2]}}
+			</div>
+		</div>
+		<div>
+			<p>
+				<a href="{{url_for('logout')}}">Выйти из профиля</a>
+			</p>
 		</div>
 </div>
 

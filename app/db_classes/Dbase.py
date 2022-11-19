@@ -19,10 +19,10 @@ class FDataBase:
         return []
 
 
-    def addPost(self, title, content, url):
+    def addPost(self, title, url, author_id):
         try:
             tm = time.time()
-            self.__cur.execute('INSERT INTO posts VALUES(NULL, ?, ?, ?, ?)', (title, content, tm, url))
+            self.__cur.execute('INSERT INTO posts VALUES(NULL, ?, ?, ?, ?)', (title, tm, url, author_id))
             self.__db.commit()
         except sqlite3.Error as e:
             print("Ошибка добавления в БД " + str(e))
@@ -31,13 +31,13 @@ class FDataBase:
         return True
 
     def getPosts(self):
-        sql = '''SELECT * FROM posts ORDER BY time DESC'''
+        sql = '''SELECT posts.id, posts.title, posts.time, posts.url, users.username  FROM posts, users ORDER BY posts.time DESC'''
         try:
             self.__cur.execute(sql)
             res = self.__cur.fetchall()
             times = []
             for i in range(len(res)):
-                times.append(timeAgo(time.time() - res[i][3]))
+                times.append(timeAgo(time.time() - res[i][2]))
             if res:
                 return res, times
         except:
@@ -83,7 +83,6 @@ class FDataBase:
         sql = f"select * from users where id={id}"
         try:
             self.__cur.execute(sql)
-            print(sql)
             res = self.__cur.fetchone()
             print(res)
             if res: return res
@@ -94,9 +93,7 @@ class FDataBase:
         sql = f"select * from users where username='{name}'"
         try:
             self.__cur.execute(sql)
-            print(sql)
             res = self.__cur.fetchone()
-            print(res)
             if res: return res
         except:
             print("Ощибка чтения БД")

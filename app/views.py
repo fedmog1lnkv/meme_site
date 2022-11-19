@@ -63,6 +63,7 @@ def index():
     print(session)
     css = [(url_for('static', filename='css/cardStyles.css'))]
     posts, times = dbase.getPosts()
+    print(times)
     return render_template("index.html", menu=dbase.getMenu(), count=len(times), posts=posts, times=times, css=css)
 
 
@@ -143,7 +144,7 @@ def reg():
             session['userLogged'] = username
             session['userId'] = id
             print(session)
-            return redirect('/profile')
+            return redirect(url_for('login'))
         else:
             if res == "UNIQUE constraint failed: users.username":
                 flash('Такой пользователь уже существует', 'error')

@@ -31,13 +31,16 @@ class FDataBase:
         return True
 
     def getPosts(self):
-        sql = '''SELECT posts.id, posts.title, posts.time, posts.url, users.username  FROM posts, users ORDER BY posts.time DESC'''
+        sql = '''SELECT posts.id, posts.title, posts.time, posts.url, users.username  FROM posts, users WHERE posts.author_id=users.id ORDER BY posts.time DESC'''
+        print('pdspd')
         try:
+            print('aaa')
             self.__cur.execute(sql)
             res = self.__cur.fetchall()
             times = []
             for i in range(len(res)):
                 times.append(timeAgo(time.time() - res[i][2]))
+            print('bb')
             if res:
                 return res, times
         except:
@@ -49,9 +52,7 @@ class FDataBase:
         sql = f"select * from posts where id={id}"
         try:
             self.__cur.execute(sql)
-            print(sql)
             res = self.__cur.fetchone()
-            print(res)
             if res: return res
         except:
             print("Ощибка чтения БД")

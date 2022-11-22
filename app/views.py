@@ -75,8 +75,12 @@ def create_post():
         print(request.form, type(request.form))
         print(request.files['file'].filename)
         print()
-        request.files['file'].save(os.path.join(os.path.abspath(os.path.dirname(__file__)), app.config['UPLOAD_FOLDER'], secure_filename(request.files['file'].filename)))
-        url = post_image(request.files['file'].filename)
+        if len(secure_filename(request.files['file'].filename).split('.')) == 2:
+            request.files['file'].save(os.path.join(os.path.abspath(os.path.dirname(__file__)), app.config['UPLOAD_FOLDER'], session["_user_id"] + "." + secure_filename(request.files['file'].filename).split('.')[-1]))
+            url = post_image(session["_user_id"] + "." + secure_filename(request.files['file'].filename).split('.')[-1])
+        else:
+            request.files['file'].save(os.path.join(os.path.abspath(os.path.dirname(__file__)), app.config['UPLOAD_FOLDER'], session["_user_id"] + "." + secure_filename(request.files['file'].filename)))
+            url = post_image(session["_user_id"] + "." + request.files['file'].filename)
         title = request.form.get('title')
         if dbase.addPost(title, url, session['_user_id']):
             flash('Пост отправлен', category='success')

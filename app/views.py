@@ -18,7 +18,6 @@ login_manager.login_message_category = 'success'
 
 @login_manager.user_loader
 def load_user(user_id):
-    print("load_user")
     return UserLogin().fromDB(user_id, dbase)
 
 dbase = None
@@ -61,34 +60,53 @@ def get_db():
 @app.route('/')
 @app.route('/index')
 def index():
-    print(session)
     css = [(url_for('static', filename='css/cardStyles.css'))]
-    posts, times = dbase.getPosts()
-    print(times)
-    return render_template("index.html", menu=dbase.getMenu(), count=len(times), posts=posts, times=times, css=css)
+    if "_user_id" in session:
+        user_id = session['_user_id']
+    else:
+        user_id = 0
+    posts, times, likes, liked_by_user = dbase.getPosts(user_id)
+
+    return render_template("index.html", menu=dbase.getMenu(), count=len(times), posts=posts, times=times, likes=likes, liked_by_user=liked_by_user, css=css)
 
 @app.route('/like_loader', methods=["POST", "GET"])
 def like_loader():
     db = get_db()
     dbase = FDataBase(db)
     if request.method == 'POST':
-        # Вот этот колхоз потом убрать нахуй
+        # Вот этот колхоз потом убрать
         post_id = str(request.data).split("=")[-1].split('\'')[0]
-        #
-        user_id = session["_user_id"]
-        print(post_id)
-        print(dbase.addLike(post_id, user_id))
-        return "liked"
+        if '_user_id' in session:
+            user_id = session["_user_id"]
+        else:
+            user_id = 0
+        res = dbase.addLike(post_id, user_id)
+        print(res)
+        if res:
+            return f"{res}"
+        else:
+            return "0"
 
+@app.route('/delete_post', methods=["POST", "GET"])
+def delete_post():
+    post_id = str(request.data).split("=")[-1].split('\'')[0]
+    db = get_db()
+    dbase = FDataBase(db)
+    res = dbase.deletePost(post_id)
+    return res
+
+@app.route("/liked")
+@login_required
+def liked():
+    css = [(url_for('static', filename='css/cardStyles.css'))]
+    posts, times, likes, liked_by_user = dbase.getPosts(session['_user_id'])
+    return render_template("liked.html", menu=dbase.getMenu(), count=len(liked_by_user), posts=posts, times=times, likes=likes, liked_by_user=liked_by_user, css=css)
 
 @app.route('/create_post', methods=['POST', 'GET'])
 @login_required
 def create_post():
     css = [(url_for('static', filename='css/cardStyles.css')), (url_for('static', filename='css/profileStyles.css'))]
     if request.method == 'POST':
-        print(request.form, type(request.form))
-        print(request.files['file'].filename)
-        print()
         if len(secure_filename(request.files['file'].filename).split('.')) == 2:
             request.files['file'].save(os.path.join(os.path.abspath(os.path.dirname(__file__)), app.config['UPLOAD_FOLDER'], session["_user_id"] + "." + secure_filename(request.files['file'].filename).split('.')[-1]))
             url = post_image(session["_user_id"] + "." + secure_filename(request.files['file'].filename).split('.')[-1])
@@ -142,7 +160,7 @@ def logout():
 
 @app.route('/reg', methods=["POST", "GET"])
 def reg():
-    css = [(url_for('static', filename='css/cardStyles.css')), (url_for('static', filename='css/profileStyles.css'))]
+    css = [(url_for('static', filename='css/cardStyles.css'))]
     if request.method == "POST":
         username = request.form['username']
         pwd = request.form['pwd']
@@ -161,7 +179,6 @@ def reg():
             id = dbase.getUserName(username)[0]
             session['userLogged'] = username
             session['userId'] = id
-            print(session)
             return redirect(url_for('login'))
         else:
             if res == "UNIQUE constraint failed: users.username":

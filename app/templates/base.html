@@ -27,7 +27,7 @@
 						<a href="/" class="menu__link">Лента новостей</a>
 					</li>
 					<li>
-						<a data-goto=".page__section_2" href="" class="menu__link">Избранное</a>
+						<a data-goto=".page__section_2" href="/liked" class="menu__link">Избранное</a>
 					</li>
 					<li>
 						<a href="/create_post" class="menu__link">Создание поста</a>
@@ -46,5 +46,8 @@
 	{% endblock %}
 
     <script src="{{url_for('static', filename='js/like.js')}}"></script>
+    <script src="{{url_for('static', filename='js/menu.js')}}"></script>
+    <script src="{{url_for('static', filename='js/mobile.js')}}"></script>
+    <script src="{{url_for('static', filename='js/theme.js')}}"></script>
   </body>
 </html>

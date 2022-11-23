@@ -37,11 +37,7 @@ for (let element of heart){
         if (this.readyState == 4){
             if (this.status == 200){
                 if (this.responseText != null){
-                    if (element.classList.contains('added')){
-                        element.querySelector('span').innerText = parseInt(element.querySelector('span').innerText) - 1
-                    } else{
-                        element.querySelector('span').innerText = parseInt(element.querySelector('span').innerText) + 1
-                    }
+                    element.querySelector('span').innerText = this.responseText
                 }
             }
         }
@@ -50,138 +46,8 @@ for (let element of heart){
   })
 }
 
-const isMobile = {
-    Android: function(){
-        return navigator.userAgent.match(/Android/i);
-    },
-    BlackBerry: function(){
-        return navigator.userAgent.match(/BlackBerry/i);
-    },
-    iOS: function(){
-        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-    },
-    Opera: function(){
-        return navigator.userAgent.match(/Opera mini/i);
-    },
-    Windows: function(){
-        return navigator.userAgent.match(/IEMobile/i);
-    },
-    any: function(){
-        return(
-            isMobile.Android()||
-            isMobile.BlackBerry()||
-            isMobile.iOS()||
-            isMobile.Opera()||
-            isMobile.Windows()
-        );
-    }
-};
-
-if (isMobile.any()){
-    document.body.classList.add('_touch');
-
-    let menuArrows = document.querySelectorAll('.menu__arrow');
-    if (menuArrows.length > 0){
-        for (let index = 0; index < menuArrows.length; index++) {
-            const menuArrow = menuArrows[index];
-            menuArrow.addEventListener("click", function(e){
-                menuArrow.parentElement.classList.toggle('_active');
-            });
-            
-        }
-    }
-
-} else{
-    document.body.classList.add('_pc');
-}
-
-const iconMenu = document.querySelector('.menu__icon');
-const menuBody = document.querySelector('.menu__body');
-if (iconMenu){   
-    iconMenu.addEventListener("click", function(e){
-        document.body.classList.toggle('_lock');
-        iconMenu.classList.toggle('_active');
-        menuBody.classList.toggle('_active');
-    });
-}
-
-const menuLinks = document.querySelectorAll('.menu__link[data-goto]');
-if (menuLinks.length > 0){
-    menuLinks.forEach(menuLink => {
-        menuLink.addEventListener("click", onMenuLinkClick);
-    });
-
-    function onMenuLinkClick(e){
-        const menuLink = e.target;
-        if (menuLink.dataset.goto && document.querySelector(menuLink.dataset.goto)){
-            const gotoBlock = document.querySelector(menuLink.dataset.goto);
-            const gotoBlockValue = gotoBlock.getBoundingClientRect().top + pageYOffset - document.querySelector('header').offsetHeight;
-        
-            if (iconMenu.classList.contains('_active')){
-                document.body.classList.remove('_lock');
-                iconMenu.classList.remove('_active');
-                menuBody.classList.remove('_active');
-            }
-
-            window.scrollTo({
-                top:gotoBlockValue,
-                behavior:"smooth"
-            });
-            e.preventDefault();
-        }
-    }
-}
-
-function theme() {
-  const toggleTheme = document.querySelector('.toggle-theme')
-  let el = document.documentElement
-
-  toggleTheme.addEventListener('click', () =>{
-    if (el.hasAttribute('data-theme')){
-      el.removeAttribute('data-theme')
-      localStorage.removeItem('theme')
-    }
-    else{
-      el.setAttribute('data-theme', 'dark')
-      localStorage.setItem('theme', 'dark')
-    }
-  })
-
-  if (localStorage.getItem('theme')){
-    el.setAttribute('data-theme', 'dark')
-  }
-}
-
-theme()
-
-let password = document.querySelector('.password');
-let securityBar = document.querySelector('.security-bar');
-let showPassword = document.querySelector('.show-password');
-console.log(password)
-console.log(showPassword)
-console.log(123)
-
-showPassword.onchange = function () {
-  if (showPassword.checked) {
-    password.type = 'text';
-  } else {
-    password.type = 'password';
-  }
-};
 
 
-password.oninput = function () {
-  let passLength = password.value.length;
-  securityBar.style.width = passLength * 10 + '%';
-  if (passLength <= 5) {
-    securityBar.style.backgroundColor = 'red';
-  } else if (passLength > 5 && passLength < 10) {
-    securityBar.style.backgroundColor = 'gold';
-  } else {
-    securityBar.style.backgroundColor = 'green';
-  }
-
-};
 
 
 

@@ -7,8 +7,9 @@
     {%for i in range(count)%}
     <div class="section-outer">
       <div class="section-inner">
-        <div id="const_card" class="const_card card">
+        <div id="const_card" class="const_card card" post_id="{{posts[i][0]}}">
           <div class="image">
+              <button onclick="delete_post({{ posts[i][0] }})">X</button>
             <div class="title_image">
 			<!-- Заголок мема -->
               <p>{{posts[i][1]}}</p>
@@ -26,7 +27,7 @@
             </div>
             <div class="image_like">
               <!-- <span class="like_color">&#10084;</span> -->
-              <button class="heart" type="button" post_id="{{posts[i][0]}}"><span class="likes-number">9</span></button>
+              <button class="heart  {% if liked_by_user[i] != 0 %} added {% endif %}" type="button" post_id="{{posts[i][0]}}"><span class="likes-number">{{likes[i]}}</span></button>
               <!-- <span>{{posts.like_count}}</span> -->
             </div>
           </div>
@@ -88,5 +89,6 @@
         </div>
       </div>
     </div> -->
+<script src="{{url_for('static', filename='js/delete_post.js')}}"></script>
 
 {% endblock %}

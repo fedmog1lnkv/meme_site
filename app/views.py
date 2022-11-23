@@ -15,6 +15,7 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 login_manager.login_message = 'Для доступа к данной страницы необходимо авторизироваться'
 login_manager.login_message_category = 'success'
+
 @login_manager.user_loader
 def load_user(user_id):
     print("load_user")
@@ -65,6 +66,19 @@ def index():
     posts, times = dbase.getPosts()
     print(times)
     return render_template("index.html", menu=dbase.getMenu(), count=len(times), posts=posts, times=times, css=css)
+
+@app.route('/like_loader', methods=["POST", "GET"])
+def like_loader():
+    db = get_db()
+    dbase = FDataBase(db)
+    if request.method == 'POST':
+        # Вот этот колхоз потом убрать нахуй
+        post_id = str(request.data).split("=")[-1].split('\'')[0]
+        #
+        user_id = session["_user_id"]
+        print(post_id)
+        print(dbase.addLike(post_id, user_id))
+        return "liked"
 
 
 @app.route('/create_post', methods=['POST', 'GET'])

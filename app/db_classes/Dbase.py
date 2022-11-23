@@ -99,6 +99,27 @@ class FDataBase:
         except:
             print("Ощибка чтения БД")
         return False
+    def addLike(self, post_id, user_id):
+        sql = f"select * from likes where post_id={post_id} and user_id={user_id}"
+        try:
+            self.__cur.execute(sql)
+            res = self.__cur.fetchone()
+            if res:
+                print(res)
+                self.__cur.execute(f"DELETE FROM likes WHERE post_id={post_id} and user_id={user_id}")
+                self.__db.commit()
+                print("DELETED")
+                return True
+        except sqlite3.Error as e:
+            print("Ошибка добавления в БД " + str(e))
+            return False
+        try:
+            self.__cur.execute("INSERT INTO likes VALUES(NULL, ?, ?)", (post_id, user_id))
+            self.__db.commit()
+        except sqlite3.Error as e:
+            print("Ошибка добавления в БД " + str(e))
+            return False
+        return True
 class User:
     def __init__(self, id, dbase):
         data = dbase.getUserId(id)

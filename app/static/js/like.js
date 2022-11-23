@@ -1,36 +1,54 @@
 "use strict"
 
+function asyncRequest(){
+    try{
+        var request = new XMLHttpRequest()
+    }
+    catch(e1){
+        try{
+            request = new ActiveXObject("XMLHTTP")
+        }
+        catch(e2){
+            try{
+            request = new ActiveXObject("Microsoft.XMLHTTP")
+            }
+            catch(e3){
+                request = false
+            }
+        }
+    }
+    return request
+}
 
 let heart = document.querySelectorAll('.heart');
 let likesNumber = document.querySelectorAll('.likes-number');
-
-// console.log(heart)
-// console.log(likesNumber)
-// heart.onclick = function () {
-//   if (heart.classList.contains('added')) {
-//     likesNumber.textContent--;
-//   } else {
-//     likesNumber.textContent++;
-//   }
-  
-//   heart.classList.toggle('added');
-// };
-
-// let like_buttons = document.querySelectorAll(".like_color");
-// console.log(like_buttons)
+const like_loader_url = "/like_loader"
+let like_request = new asyncRequest()
 
 for (let element of heart){
   element.addEventListener("click", function() {
-    // if (element.classList.contains('added')) {
-    //   likesNumber.textContent--;
-    // } else {
-    //   likesNumber.textContent++;
-    // }
-    
+
+    const post_id = element.getAttribute('post_id')
+    let params = `post_id=${post_id}`
+    like_request.open("POST", like_loader_url, true)
+    like_request.send(params)
+    console.log(params)
+    like_request.onreadystatechange = function(){
+        if (this.readyState == 4){
+            if (this.status == 200){
+                if (this.responseText != null){
+                    if (element.classList.contains('added')){
+                        element.querySelector('span').innerText = parseInt(element.querySelector('span').innerText) - 1
+                    } else{
+                        element.querySelector('span').innerText = parseInt(element.querySelector('span').innerText) + 1
+                    }
+                }
+            }
+        }
+    }
     element.classList.toggle('added');
   })
 }
-
 
 const isMobile = {
     Android: function(){
@@ -77,8 +95,6 @@ if (isMobile.any()){
     document.body.classList.add('_pc');
 }
 
-//Меню бургер
-
 const iconMenu = document.querySelector('.menu__icon');
 const menuBody = document.querySelector('.menu__body');
 if (iconMenu){   
@@ -88,9 +104,6 @@ if (iconMenu){
         menuBody.classList.toggle('_active');
     });
 }
-
-
-// Прокрутка при клике
 
 const menuLinks = document.querySelectorAll('.menu__link[data-goto]');
 if (menuLinks.length > 0){
@@ -119,81 +132,6 @@ if (menuLinks.length > 0){
     }
 }
 
-// /////////////////////////////////////////
-console.log(123)
-// function like_color() {
-//   document.querySelector(".like_color").classList.toggle('image_like_red');
-// }
-
-// let like_buttons = document.querySelectorAll(".like_color");
-// console.log(like_buttons)
-
-// for (let element of like_buttons){
-//   element.addEventListener("click", function() {
-//     element.classList.toggle('image_like_red');
-//   })
-// }
-
-// ///////////////////////////////////////////
-
-
-// $('.brise-upload > label').find('input').change(function() {
-//   var file = this.files;
-// $('.brise-upload > label').text('Selected file: ' + file[0].name);
-// })
-
-///////////////////////////////////////////////////////////////
-
-// let comments = [];
-// // loadComments();
-
-// document.getElementById('comment-add').onclick = function(){
-//     event.preventDefault();
-//     let commentName = document.getElementById('comment-name');  // получили элементы формы
-//     let commentBody = document.getElementById('comment-body');  // получили элементы формы
-
-//     let comment = {
-//         name : commentName.value, //получили имя того, кто написал комментарий
-//         body : commentBody.value, // получили комментарий
-//         time : Math.floor(Date.now() / 1000) // получили время комментария
-//     }
-
-//     commentName.value = ''; //очистили форму элемента
-//     commentBody.value = ''; //очистили форму
-
-//     comments.push(comment); // добавляем в массив наш массив на 121 строке
-//     showComments();// выводим на экран
-// }
-
-
-
-// function showComments (){
-//     let commentField = document.getElementById('comment-field');
-//     let out = '';
-//     comments.forEach(function(item){
-//         // out += `<p class="text-right small"><em>${timeConverter(item.time)}</em></p>`;//время
-//         // out += `<p class="alert alert-primary" role="alert">${item.name}</p>`;//имя
-//         out += `<p class="alert alert-success" >${item.body}</p>`;//комментарий
-//     });
-//     commentField.innerHTML = out;
-// }
-
-// //конвертируем время
-// function timeConverter(UNIX_timestamp){
-//     var a = new Date(UNIX_timestamp * 1000);
-//     var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-//     var year = a.getFullYear();
-//     var month = months[a.getMonth()];
-//     var date = a.getDate();
-//     var hour = a.getHours();
-//     var min = a.getMinutes();
-//     var sec = a.getSeconds();
-//     var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
-//     return time;
-//   }
-//   console.log(comments)
-///////////////////////////////////////////////////
-
 function theme() {
   const toggleTheme = document.querySelector('.toggle-theme')
   let el = document.documentElement
@@ -216,23 +154,12 @@ function theme() {
 
 theme()
 
-// console.log(toggleTheme)
-// console.log(123)
-////////////////////////////////
-
 let password = document.querySelector('.password');
 let securityBar = document.querySelector('.security-bar');
 let showPassword = document.querySelector('.show-password');
 console.log(password)
 console.log(showPassword)
 console.log(123)
-
-
-// let heart = document.querySelector('.heart');
-// let likesNumber = document.querySelector('.likes-number');
-
-// console.log(heart)
-
 
 showPassword.onchange = function () {
   if (showPassword.checked) {
@@ -241,8 +168,6 @@ showPassword.onchange = function () {
     password.type = 'password';
   }
 };
-
-
 
 
 password.oninput = function () {

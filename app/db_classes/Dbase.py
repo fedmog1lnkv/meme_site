@@ -55,7 +55,11 @@ class FDataBase:
             liked_by_user_counts = []
             j = 0
             c = 0
-            print(len(liked_by_user))
+            for item in liked_by_user:
+                for i in item:
+                    print(i)
+                print()
+
             for i in range(len(res)):
                 times.append(timeAgo(time.time() - res[i][2]))
                 if len(likes) != 0:
@@ -68,7 +72,7 @@ class FDataBase:
                 else:
                     likes_counts.append(0)
                 if len(liked_by_user) != 0:
-                    while (res[i][0] < liked_by_user[c][0] and j < len(liked_by_user) - 1):
+                    while (res[i][0] < liked_by_user[c][0] and c < len(liked_by_user) - 1):
                         c += 1
                     if res[i][0] == liked_by_user[c][0]:
                         liked_by_user_counts.append(liked_by_user[c][0])
@@ -77,8 +81,6 @@ class FDataBase:
                 else:
                     liked_by_user_counts.append(0)
 
-            print(liked_by_user_counts)
-            print(likes_counts)
             if res:
                 return res, times, likes_counts, liked_by_user_counts
         except sqlite3.Error as e:

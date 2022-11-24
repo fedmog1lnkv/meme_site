@@ -100,6 +100,9 @@ def delete_post():
 def liked():
     css = [(url_for('static', filename='css/cardStyles.css'))]
     posts, times, likes, liked_by_user = dbase.getPosts(session['_user_id'])
+
+    print(liked_by_user)
+
     return render_template("liked.html", menu=dbase.getMenu(), count=len(liked_by_user), posts=posts, times=times, likes=likes, liked_by_user=liked_by_user, css=css)
 
 @app.route('/create_post', methods=['POST', 'GET'])

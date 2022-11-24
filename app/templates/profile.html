@@ -2,24 +2,41 @@
 
 {% block content %}
 {{ super() }}
-	
+
 <div class="section-outer">
-		<div class="section-inner">
-			<div>
-				ID пользователя: {{user[0]}}
-			</div>
-			<div>
-				Имя пользователя: {{user[1]}}
-			</div>
-			<div>
-				Дата регистрации: {{user[2]}}
-			</div>
-		</div>
-		<div>
-			<p>
-				<a href="{{url_for('logout')}}">Выйти из профиля</a>
-			</p>
-		</div>
+  <div class="section-inner">
+    <div class="profile_container">
+      <div class="profile_image">
+        <img
+        src="https://avatars.mds.yandex.net/i?id=60d0391dc5bcbb06d255eb50c0ecd56900ddbbef-5987336-images-thumbs&n=13"
+        class="profile_picture"
+      />
+      </div>
+      <div>
+      <div class="profile_all_info">
+        <div class="profile_info">
+          <div class="profile_left">ID пользователя:</div>
+          <div class="profile_right">{{user[0]}}</div>
+        </div>
+        <div class="profile_info">
+          <div class="profile_left">Имя пользователя:</div>
+          <div class="profile_right">{{user[1]}}</div>
+        </div>
+        <div class="profile_info">
+          <div class="profile_left">Дата регистрации:</div>
+          <div class="profile_right">{{user[2]}}</div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="profile_exit">
+    <p>
+      <a href="{{url_for('logout')}}">Выйти из профиля</a>
+    </p>
+  </div>
+</div>
+</div>
 </div>
 
 {% endblock %}

@@ -7,6 +7,7 @@ from werkzeug.utils import secure_filename
 from app.image import post_image
 import sqlite3
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+import bcrypt
 
 app.config.from_object('app.configs')
 app.config.update(dict(DATABASE=os.path.join(app.root_path, 'database.db')))
@@ -65,9 +66,13 @@ def index():
         user_id = session['_user_id']
     else:
         user_id = 0
-    posts, times, likes, liked_by_user = dbase.getPosts(user_id)
 
-    return render_template("index.html", menu=dbase.getMenu(), count=len(times), posts=posts, times=times, likes=likes, liked_by_user=liked_by_user, css=css)
+    posts, times, likes, liked_by_user = dbase.getPosts(user_id)
+    if user_id != 0:
+        user_name = current_user.get_username()
+    else:
+        user_name = ""
+    return render_template("index.html", menu=dbase.getMenu(), count=len(times), posts=posts, times=times, likes=likes, liked_by_user=liked_by_user, user_name=user_name, css=css)
 
 @app.route('/like_loader', methods=["POST", "GET"])
 def like_loader():
@@ -100,29 +105,29 @@ def delete_post():
 def liked():
     css = [(url_for('static', filename='css/cardStyles.css'))]
     posts, times, likes, liked_by_user = dbase.getPosts(session['_user_id'])
+    user_id = 0
+    user_name = ""
+    if "_user_id" in session:
+        user_id = session["_user_id"]
+        user_name = current_user.get_username()
 
-    print(liked_by_user)
-
-    return render_template("liked.html", menu=dbase.getMenu(), count=len(liked_by_user), posts=posts, times=times, likes=likes, liked_by_user=liked_by_user, css=css)
+    return render_template("liked.html", menu=dbase.getMenu(), count=len(liked_by_user), posts=posts, times=times, likes=likes, liked_by_user=liked_by_user, user_name=user_name, css=css)
 
 @app.route('/create_post', methods=['POST', 'GET'])
 @login_required
 def create_post():
     css = [(url_for('static', filename='css/cardStyles.css')), (url_for('static', filename='css/profileStyles.css'))]
     if request.method == 'POST':
-        if len(secure_filename(request.files['file'].filename).split('.')) == 2:
-            request.files['file'].save(os.path.join(os.path.abspath(os.path.dirname(__file__)), app.config['UPLOAD_FOLDER'], session["_user_id"] + "." + secure_filename(request.files['file'].filename).split('.')[-1]))
-            url = post_image(session["_user_id"] + "." + secure_filename(request.files['file'].filename).split('.')[-1])
-        else:
-            request.files['file'].save(os.path.join(os.path.abspath(os.path.dirname(__file__)), app.config['UPLOAD_FOLDER'], session["_user_id"] + "." + secure_filename(request.files['file'].filename)))
-            url = post_image(session["_user_id"] + "." + request.files['file'].filename)
-        title = request.form.get('title')
-        if dbase.addPost(title, url, session['_user_id']):
-            flash('Пост отправлен', category='success')
-        else:
-            flash('Ошибка добавления', category='error')
-        # sql.add_post(request.form)
-        return render_template('create_post.html', css=css)
+        if secure_filename(request.files['file'].filename) :
+            request.files['file'].save(os.path.join(os.path.abspath(os.path.dirname(__file__)), app.config['UPLOAD_FOLDER'], session["_user_id"] + "." + secure_filename(request.files['file'].filename.split(".")[-1])))
+            url = post_image(session["_user_id"] + "." + secure_filename(request.files['file'].filename.split(".")[-1]))
+            title = request.form.get('title')
+            if dbase.addPost(title, url, session['_user_id']):
+                flash('Пост отправлен', category='success')
+            else:
+                flash('Ошибка добавления', category='error')
+            return render_template('create_post.html', css=css)
+
     return render_template('create_post.html', title="sss", content="ddd", css=css)
 
 
@@ -137,7 +142,11 @@ def profile_user(username):
 @login_required
 def profile():
     css = [(url_for('static', filename='css/cardStyles.css')), (url_for('static', filename='css/profileStyles.css'))]
-    return render_template('profile.html', css=css, user=current_user.get_info())
+    user_id = session["_user_id"]
+    print(dbase.getUserPosts(user_id))
+    posts, times, likes, liked_by_user = dbase.getUserPosts(user_id)
+    print(len(times))
+    return render_template('profile.html', css=css, user=current_user.get_info(), count=len(times), posts=posts, times=times, likes=likes, liked_by_user=liked_by_user)
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
@@ -145,7 +154,7 @@ def login():
     if request.method == "POST":
         user = dbase.getUserName(request.form['username'])
         rm = 'rb_me' in request.form
-        if user and request.form['pwd'] == user['password']:
+        if user and bcrypt.checkpw(request.form['pwd'].encode(), user['password']):
             userLogin = UserLogin().create(user)
             login_user(userLogin, remember=rm)
             return redirect(request.args.get('next') or url_for('profile'))
@@ -177,7 +186,7 @@ def reg():
         if len(username) < 4:
             flash('Имя пользователя должно быть не меньше 4 символов', 'error')
             return render_template('reg.html', css=css)
-        res = dbase.addUser(username, pwd)
+        res = dbase.addUser(username, bcrypt.hashpw(pwd.encode(), bcrypt.gensalt()))
         if type(res) != str:
             id = dbase.getUserName(username)[0]
             session['userLogged'] = username

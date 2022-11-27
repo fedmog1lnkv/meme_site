@@ -16,3 +16,6 @@ class UserLogin(UserMixin):
     def get_info(self):
         return [self.__user['id'], self.__user['username'], secondsToDate(self.__user['time'])]
 
+    def get_username(self):
+        return self.__user['username']
+

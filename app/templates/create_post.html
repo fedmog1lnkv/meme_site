@@ -4,9 +4,9 @@
 {{ super() }}
 <div class="section-outer">
     <div class="section-iiner">
-        {% for cat, msg in get_flashed_messages(True) %}
-        <div class="flash {{cat}}">{{msg}}</div>
-        {% endfor %}
+    {% for cat, msg in get_flashed_messages(True) %}
+      <div class="flash {{cat}} profile_exit">{{msg}}</div>
+    {% endfor %}
 
         <div class="input-block">
             <h1>Текст мема</h1>
@@ -19,7 +19,7 @@
                 </div>
                 <div class="brise-upload">
                     <label>
-                        <input type="file" name="file" accept="">
+                        <input type="file" name="file" accept="image/*">
                         <span class="label">Upload file</span>
                     </label>
                 </div>

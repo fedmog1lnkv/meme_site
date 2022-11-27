@@ -40,6 +40,59 @@ class FDataBase:
             return "0"
         return "1"
 
+    def getUserPosts(self, user_id):
+        sql = f'''SELECT posts.id, posts.title, posts.time, posts.url, users.username FROM posts, users WHERE posts.author_id={user_id} and users.id=posts.author_id ORDER BY posts.time DESC'''
+        try:
+            self.__cur.execute(sql)
+            res = self.__cur.fetchall()
+            for i in res:
+                for j in i:
+                    print(j, "что нахуй")
+                print()
+            likes = self.getLikes()
+            if user_id != 0:
+                liked_by_user = self.getLikedByUser(user_id)
+            else:
+                liked_by_user = []
+            times = []
+            likes_counts = []
+            liked_by_user_counts = []
+            j = 0
+            c = 0
+            # for item in liked_by_user:
+            #     for i in item:
+            #         print(i)
+            #     print()
+
+            for i in range(len(res)):
+                times.append(timeAgo(time.time() - res[i][2]))
+                if len(likes) != 0:
+                    while (res[i][0] < likes[j][0] and j < len(likes) - 1):
+                        j += 1
+                    if res[i][0] == likes[j][0]:
+                        likes_counts.append(likes[j][1])
+                    else:
+                        likes_counts.append(0)
+                else:
+                    likes_counts.append(0)
+                if len(liked_by_user) != 0:
+                    while (res[i][0] < liked_by_user[c][0] and c < len(liked_by_user) - 1):
+                        c += 1
+                    if res[i][0] == liked_by_user[c][0]:
+                        liked_by_user_counts.append(liked_by_user[c][0])
+                    else:
+                        liked_by_user_counts.append(0)
+                else:
+                    liked_by_user_counts.append(0)
+            print(res, times, likes_counts, liked_by_user_counts)
+            if res:
+                return res, times, likes_counts, liked_by_user_counts
+            else:
+                return [], [], [], []
+        except sqlite3.Error as e:
+            print("Ошибка добавления в БД " + str(e))
+            return [], [], [], []
+
     def getPosts(self, user_id = 0):
         sql = '''SELECT posts.id, posts.title, posts.time, posts.url, users.username  FROM posts, users WHERE posts.author_id=users.id ORDER BY posts.time DESC'''
         try:
@@ -83,6 +136,8 @@ class FDataBase:
 
             if res:
                 return res, times, likes_counts, liked_by_user_counts
+            else:
+                return [], [], [], []
         except sqlite3.Error as e:
             print("Ошибка добавления в БД " + str(e))
             return [], [], [], []
@@ -207,4 +262,7 @@ class User:
 
     def getAllInfo(self):
         return [self.__id, self.__username, secondsToDate(self.__time)]
+
+    def getName(self):
+        return self.__username
 

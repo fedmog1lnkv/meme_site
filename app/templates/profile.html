@@ -39,4 +39,78 @@
 </div>
 </div>
 
+
+{%for i in range(count)%}
+<div class="section-outer">
+  <div class="section-inner">
+    <div id="const_card" class="const_card card" post_id="{{posts[i][0]}}">
+      <div class="image">
+        <div class="close_and_time">
+		<div class="time">
+			<p>{{times[i]}}</p>
+		</div>
+          <div class="close">
+            <button class="cl-btn-7" onclick="delete_post({{ posts[i][0] }})"></button>
+          </div>
+
+        </div>
+
+        <div class="title_image">
+          <!-- Заголок мема -->
+          <p>{{posts[i][1]}}</p>
+        </div>
+        <div class="title_image">
+          <!-- Дата публикации мема -->
+        </div>
+        <div class="image_image">
+          <img src="{{posts[i][3]}}">
+        </div>
+
+        <div class="author_and_like">
+          <div class="title_image">
+            <p>{{posts[i][4]}}</p>
+          </div>
+          <div class="image_like">
+            <button class="heart  {% if liked_by_user[i] != 0 %} added {% endif %}" type="button"
+              post_id="{{posts[i][0]}}"><span class="likes-number">{{likes[i]}}</span></button>
+          </div>
+        </div>
+        <!-- <div class="title_image">
+                  <p>Автор: {{posts[i][4]}}</p>
+            </div> -->
+        <!-- <div class="image_like">
+              <button class="heart  {% if liked_by_user[i] != 0 %} added {% endif %}" type="button" post_id="{{posts[i][0]}}"><span class="likes-number">{{likes[i]}}</span></button>
+            </div> -->
+
+      </div>
+      <!-- <div class="info">
+            <div class="title">
+
+            </div>
+           <div class="comments">
+
+
+
+				<div class="one_comment">
+					<div class="comment_image">
+					<img
+						src="https://avatars.mds.yandex.net/i?id=60d0391dc5bcbb06d255eb50c0ecd56900ddbbef-5987336-images-thumbs&n=13"
+						class="picture"
+					/>
+					</div>
+					<div class="comment_feed">
+					<span>{{comment}}</span>
+					</div>
+				</div>
+
+
+            </div>
+          </div>  -->
+    </div>
+  </div>
+</div>
+{%endfor%}
+
+
+<script src="{{url_for('static', filename='js/delete_post.js')}}"></script>
 {% endblock %}

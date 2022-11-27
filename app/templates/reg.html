@@ -4,9 +4,9 @@
 {{ super() }}
 <div class="section-outer">
     <div class="section-iiner">
-        {% for cat, msg in get_flashed_messages(True) %}
-        <div class="flash {{cat}}">{{msg}}</div>
-        {% endfor %}
+    {% for cat, msg in get_flashed_messages(True) %}
+      <div class="flash {{cat}} profile_exit">{{msg}}</div>
+    {% endfor %}
 
         <div class="input-block">
             <h1>Регистрация</h1>
@@ -39,4 +39,6 @@
 		</div>
 	</div>
 </div>
+
+<script src="{{url_for('static', filename='js/password.js')}}"></script>
 {% endblock %}

@@ -10,12 +10,14 @@
     <div id="const_card" class="const_card card" post_id="{{posts[i][0]}}">
       <div class="image">
         <div class="close_and_time">
+		<div class="time">
+			<p>{{times[i]}}</p>
+		</div>
+          {% if user_name == posts[i][4] or user_name == "admin" %}
           <div class="close">
             <button class="cl-btn-7" onclick="delete_post({{ posts[i][0] }})"></button>
           </div>
-          <div class="time">
-            <p>{{times[i]}}</p>
-          </div>
+          {% endif %}
         </div>
 
         <div class="title_image">

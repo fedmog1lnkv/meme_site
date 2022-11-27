@@ -3,42 +3,57 @@
 {% block content %}
 {{ super() }}
 
-	<!--Посты-->
-    {%for i in range(count)%}
-    <div class="section-outer">
-      <div class="section-inner">
-        <div id="const_card" class="const_card card" post_id="{{posts[i][0]}}">
-          <div class="image">
-              <button onclick="delete_post({{ posts[i][0] }})">X</button>
-            <div class="title_image">
-			<!-- Заголок мема -->
-              <p>{{posts[i][1]}}</p>
-            </div>
-			<div class="title_image">
-				<!-- Дата публикации мема -->
-				<p>{{times[i]}}</p>
-			</div>
-            <div class="image_image">
-              <img src="{{posts[i][3]}}">
-            </div>
-
-              <div class="title_image">
-                  <p>Автор: {{posts[i][4]}}</p>
-            </div>
-            <div class="image_like">
-              <!-- <span class="like_color">&#10084;</span> -->
-              <button class="heart  {% if liked_by_user[i] != 0 %} added {% endif %}" type="button" post_id="{{posts[i][0]}}"><span class="likes-number">{{likes[i]}}</span></button>
-              <!-- <span>{{posts.like_count}}</span> -->
-            </div>
+<!--Посты-->
+{%for i in range(count)%}
+<div class="section-outer">
+  <div class="section-inner">
+    <div id="const_card" class="const_card card" post_id="{{posts[i][0]}}">
+      <div class="image">
+        <div class="close_and_time">
+          <div class="close">
+            <button class="cl-btn-7" onclick="delete_post({{ posts[i][0] }})"></button>
           </div>
-          <div class="info">
+          <div class="time">
+            <p>{{times[i]}}</p>
+          </div>
+        </div>
+
+        <div class="title_image">
+          <!-- Заголок мема -->
+          <p>{{posts[i][1]}}</p>
+        </div>
+        <div class="title_image">
+          <!-- Дата публикации мема -->
+        </div>
+        <div class="image_image">
+          <img src="{{posts[i][3]}}">
+        </div>
+
+        <div class="author_and_like">
+          <div class="title_image">
+            <p>{{posts[i][4]}}</p>
+          </div>
+          <div class="image_like">
+            <button class="heart  {% if liked_by_user[i] != 0 %} added {% endif %}" type="button"
+              post_id="{{posts[i][0]}}"><span class="likes-number">{{likes[i]}}</span></button>
+          </div>
+        </div>
+        <!-- <div class="title_image">
+                  <p>Автор: {{posts[i][4]}}</p>
+            </div> -->
+        <!-- <div class="image_like">
+              <button class="heart  {% if liked_by_user[i] != 0 %} added {% endif %}" type="button" post_id="{{posts[i][0]}}"><span class="likes-number">{{likes[i]}}</span></button>
+            </div> -->
+
+      </div>
+      <!-- <div class="info">
             <div class="title">
-              <!-- <p>{{posts.name_post}}</p> -->
+
             </div>
            <div class="comments">
 
-			<!--Комментарии-->
-            {%for comment in posts.comments%}
+	
+
 				<div class="one_comment">
 					<div class="comment_image">
 					<img
@@ -50,21 +65,21 @@
 					<span>{{comment}}</span>
 					</div>
 				</div>
-            {%endfor%}
+
 
             </div>
-          </div>
-        </div>
-      </div>
+          </div>  -->
     </div>
-    {%endfor%}
-  
+  </div>
+</div>
+{%endfor%}
 
 
 
 
 
-    <!-- <div class="container">
+
+<!-- <div class="container">
       <div class="row">
         <div class="col-lg-12">
           <h2 class="text-center">Comments</h2>

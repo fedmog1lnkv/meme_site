@@ -7,7 +7,7 @@ from werkzeug.utils import secure_filename
 from app.image import post_image
 import sqlite3
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
-from app.create_db import create_db
+# from app.create_db import create_db
 import bcrypt
 
 app.config.from_object('app.configs')

@@ -2,11 +2,12 @@ from flask import render_template, g, flash, session, abort, redirect, url_for
 from flask import request
 from app import app
 import os
-from app.db_classes import FDataBase, User, UserLogin
+from app.db_classes import FDataBase, UserLogin
 from werkzeug.utils import secure_filename
 from app.image import post_image
 import sqlite3
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from app.create_db import create_db
 import bcrypt
 
 app.config.from_object('app.configs')
@@ -39,12 +40,7 @@ def connect_db():
     return conn
 
 
-def create_db():
-    db = connect_db()
-    with app.open_resource('sq_db.sql', mode='r') as f:
-        db.cursor().executescript(f.read())
-    db.commit()
-    db.close()
+
 
 
 def get_db():

@@ -2,4 +2,4 @@
 from app import app, create_db
 
 
-app.run(debug=True)
+app.run()

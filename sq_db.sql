@@ -2,7 +2,9 @@ CREATE TABLE IF NOT EXISTS posts (
     id integer PRIMARY KEY AUTOINCREMENT,
     title text NOT NULL,
     time integer NOT NULL,
-    url VARCHAR
+    url VARCHAR,
+    author_id integer NOT NULL,
+    FOREIGN KEY(author_id) REFERENCES users(id)
 );
 
 CREATE TABLE IF NOT EXISTS users (

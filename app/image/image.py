@@ -13,7 +13,7 @@ def post_image(file_image):
     with open(file_image, "rb") as image:
         url = "https://api.imgbb.com/1/upload"
         payload = {
-            "key": "676833e8ae2349f44aa08932c359446c",
+            "key": "390d0a3643244f33633bb72a7292f905",
             "image": base64.b64encode(image.read()),
             "name": file_image,
         }

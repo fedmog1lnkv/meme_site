@@ -1,45 +1,34 @@
-
 const isMobile = {
-    Android: function(){
+    Android: function() {
         return navigator.userAgent.match(/Android/i);
     },
-    BlackBerry: function(){
+    BlackBerry: function() {
         return navigator.userAgent.match(/BlackBerry/i);
     },
-    iOS: function(){
+    iOS: function() {
         return navigator.userAgent.match(/iPhone|iPad|iPod/i);
     },
-    Opera: function(){
+    Opera: function() {
         return navigator.userAgent.match(/Opera mini/i);
     },
-    Windows: function(){
+    Windows: function() {
         return navigator.userAgent.match(/IEMobile/i);
     },
-    any: function(){
-        return(
-            isMobile.Android()||
-            isMobile.BlackBerry()||
-            isMobile.iOS()||
-            isMobile.Opera()||
-            isMobile.Windows()
-        );
+    any: function() {
+        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
     }
 };
-
-if (isMobile.any()){
+if (isMobile.any()) {
     document.body.classList.add('_touch');
-
     let menuArrows = document.querySelectorAll('.menu__arrow');
-    if (menuArrows.length > 0){
+    if (menuArrows.length > 0) {
         for (let index = 0; index < menuArrows.length; index++) {
             const menuArrow = menuArrows[index];
-            menuArrow.addEventListener("click", function(e){
+            menuArrow.addEventListener("click", function(e) {
                 menuArrow.parentElement.classList.toggle('_active');
             });
-
         }
     }
-
-} else{
+} else {
     document.body.classList.add('_pc');
 }

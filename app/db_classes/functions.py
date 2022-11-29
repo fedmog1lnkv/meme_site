@@ -1,5 +1,6 @@
 import time
 
+
 def secondsToDate(second, retMH=False):
     struct = time.localtime(second)
     if retMH:
@@ -17,7 +18,7 @@ def timeAgo(second):
                 return f"{int(second)} секунду назад"
             case 2 | 3 | 4:
                 return f"{int(second)} секунды назад"
-            case 5 | 6 | 7 | 8 | 9| 0:
+            case 5 | 6 | 7 | 8 | 9 | 0:
                 return f"{int(second)} секунд назад"
     if second < 60 * 60:
         if int(second / 60) >= 11 and int(second / 60) <= 20:
@@ -27,7 +28,7 @@ def timeAgo(second):
                 return f"{int(second / 60)} минуту назад"
             case 2 | 3 | 4:
                 return f"{int(second / 60)} минуты назад"
-            case 5 | 6 | 7 | 8 | 9| 0:
+            case 5 | 6 | 7 | 8 | 9 | 0:
                 return f"{int(second / 60)} минут назад"
     if second < 60 * 60 * 60:
         if int(second / 60 / 60) >= 11 and int(second / 60 / 60) <= 20:
@@ -37,6 +38,6 @@ def timeAgo(second):
                 return f"{int(second / 60 / 60)} час назад"
             case 2 | 3 | 4:
                 return f"{int(second / 60 / 60)} часа назад"
-            case 5 | 6 | 7 | 8 | 9| 0:
+            case 5 | 6 | 7 | 8 | 9 | 0:
                 return f"{int(second / 60 / 60)} часов назад"
     return secondsToDate(time.time() - second)

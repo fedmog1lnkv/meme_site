@@ -1,4 +1,4 @@
-#Конфигурация
+# Конфигурация
 
 DATABASE = '/app/database.db'
 DEGUF = True

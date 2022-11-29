@@ -7,7 +7,6 @@ from werkzeug.utils import secure_filename
 from app.image import post_image
 import sqlite3
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
-# from app.create_db import create_db
 import bcrypt
 
 app.config.from_object('app.configs')
@@ -18,21 +17,27 @@ login_manager.login_view = 'login'
 login_manager.login_message = 'Для доступа к данной страницы необходимо авторизироваться'
 login_manager.login_message_category = 'success'
 
+
 @login_manager.user_loader
 def load_user(user_id):
     return UserLogin().fromDB(user_id, dbase)
 
+
 dbase = None
+
+
 @app.before_request
 def before_request():
     global dbase
     db = get_db()
     dbase = FDataBase(db)
 
+
 @app.teardown_appcontext
 def close_db(error):
     if hasattr(g, 'link_db'):
         g.link_db.close()
+
 
 def connect_db():
     conn = sqlite3.connect(app.config['DATABASE'])
@@ -40,18 +45,10 @@ def connect_db():
     return conn
 
 
-
-
-
 def get_db():
     if not hasattr(g, 'link_db'):
         g.link_db = connect_db()
     return g.link_db
-
-
-# @app.errorhandler(401)
-# def notThisUser(error):
-#     redirect(url_for('login'))
 
 
 @app.route('/')
@@ -68,14 +65,15 @@ def index():
         user_name = current_user.get_username()
     else:
         user_name = ""
-    return render_template("index.html", menu=dbase.getMenu(), count=len(times), posts=posts, times=times, likes=likes, liked_by_user=liked_by_user, user_name=user_name, css=css)
+    return render_template("index.html", menu=dbase.getMenu(), count=len(times), posts=posts, times=times, likes=likes,
+                           liked_by_user=liked_by_user, user_name=user_name, css=css)
+
 
 @app.route('/like_loader', methods=["POST", "GET"])
 def like_loader():
     db = get_db()
     dbase = FDataBase(db)
     if request.method == 'POST':
-        # Вот этот колхоз потом убрать
         post_id = str(request.data).split("=")[-1].split('\'')[0]
         if '_user_id' in session:
             user_id = session["_user_id"]
@@ -88,6 +86,7 @@ def like_loader():
         else:
             return "0"
 
+
 @app.route('/delete_post', methods=["POST", "GET"])
 def delete_post():
     post_id = str(request.data).split("=")[-1].split('\'')[0]
@@ -95,6 +94,7 @@ def delete_post():
     dbase = FDataBase(db)
     res = dbase.deletePost(post_id)
     return res
+
 
 @app.route("/liked")
 @login_required
@@ -107,15 +107,20 @@ def liked():
         user_id = session["_user_id"]
         user_name = current_user.get_username()
 
-    return render_template("liked.html", menu=dbase.getMenu(), count=len(liked_by_user), posts=posts, times=times, likes=likes, liked_by_user=liked_by_user, user_name=user_name, css=css)
+    return render_template("liked.html", menu=dbase.getMenu(), count=len(liked_by_user), posts=posts, times=times,
+                           likes=likes, liked_by_user=liked_by_user, user_name=user_name, css=css)
+
 
 @app.route('/create_post', methods=['POST', 'GET'])
 @login_required
 def create_post():
     css = [(url_for('static', filename='css/cardStyles.css')), (url_for('static', filename='css/profileStyles.css'))]
     if request.method == 'POST':
-        if secure_filename(request.files['file'].filename) :
-            request.files['file'].save(os.path.join(os.path.abspath(os.path.dirname(__file__)), app.config['UPLOAD_FOLDER'], session["_user_id"] + "." + secure_filename(request.files['file'].filename.split(".")[-1])))
+        if secure_filename(request.files['file'].filename):
+            request.files['file'].save(
+                os.path.join(os.path.abspath(os.path.dirname(__file__)), app.config['UPLOAD_FOLDER'],
+                             session["_user_id"] + "." + secure_filename(
+                                 request.files['file'].filename.split(".")[-1])))
             url = post_image(session["_user_id"] + "." + secure_filename(request.files['file'].filename.split(".")[-1]))
             title = request.form.get('title')
             if dbase.addPost(title, url, session['_user_id']):
@@ -134,6 +139,7 @@ def profile_user(username):
         abort(401)
     return f"Пользователь: {username}"
 
+
 @app.route('/profile')
 @login_required
 def profile():
@@ -142,7 +148,9 @@ def profile():
     print(dbase.getUserPosts(user_id))
     posts, times, likes, liked_by_user = dbase.getUserPosts(user_id)
     print(len(times))
-    return render_template('profile.html', css=css, user=current_user.get_info(), count=len(times), posts=posts, times=times, likes=likes, liked_by_user=liked_by_user)
+    return render_template('profile.html', css=css, user=current_user.get_info(), count=len(times), posts=posts,
+                           times=times, likes=likes, liked_by_user=liked_by_user)
+
 
 @app.route("/login", methods=["POST", "GET"])
 def login():

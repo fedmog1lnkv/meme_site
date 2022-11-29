@@ -40,72 +40,12 @@
               post_id="{{posts[i][0]}}"><span class="likes-number">{{likes[i]}}</span></button>
           </div>
         </div>
-        <!-- <div class="title_image">
-                  <p>Автор: {{posts[i][4]}}</p>
-            </div> -->
-        <!-- <div class="image_like">
-              <button class="heart  {% if liked_by_user[i] != 0 %} added {% endif %}" type="button" post_id="{{posts[i][0]}}"><span class="likes-number">{{likes[i]}}</span></button>
-            </div> -->
-
       </div>
-      <!-- <div class="info">
-            <div class="title">
-
-            </div>
-           <div class="comments">
-
-	
-
-				<div class="one_comment">
-					<div class="comment_image">
-					<img
-						src="https://avatars.mds.yandex.net/i?id=60d0391dc5bcbb06d255eb50c0ecd56900ddbbef-5987336-images-thumbs&n=13"
-						class="picture"
-					/>
-					</div>
-					<div class="comment_feed">
-					<span>{{comment}}</span>
-					</div>
-				</div>
-
-
-            </div>
-          </div>  -->
     </div>
   </div>
 </div>
 {%endfor%}
 
-
-
-
-
-
-<!-- <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <h2 class="text-center">Comments</h2>
-        </div>
-        <div class="col-lg-6">
-          <div id="comment-field"></div>
-        </div>
-        <div class="col-lg-6">
-          <form>
-            <div class="form-group">
-              <label for="comment-name">Name:</label>
-              <input type="text" class="form-control" id="comment-name"  placeholder="Введите имя">
-            </div>
-            <div class="form-group">
-              <label for="comment-body">Comment:</label>
-              <textarea type="password" class="form-control" id="comment-body" placeholder="Комментарий"></textarea>
-            </div>
-            <div class="form-group form-check text-right">
-              <button type="submit" id="comment-add" class="btn btn-primary">Отправить</button>
-            </div>
-          </form> 
-        </div>
-      </div>
-    </div> -->
 <script src="{{url_for('static', filename='js/delete_post.js')}}"></script>
 
 {% endblock %}

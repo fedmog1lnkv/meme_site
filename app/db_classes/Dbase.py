@@ -18,7 +18,6 @@ class FDataBase:
             print("Ощибка чтения БД")
         return []
 
-
     def addPost(self, title, url, author_id):
         try:
             tm = time.time()
@@ -59,10 +58,6 @@ class FDataBase:
             liked_by_user_counts = []
             j = 0
             c = 0
-            # for item in liked_by_user:
-            #     for i in item:
-            #         print(i)
-            #     print()
 
             for i in range(len(res)):
                 times.append(timeAgo(time.time() - res[i][2]))
@@ -93,7 +88,7 @@ class FDataBase:
             print("Ошибка добавления в БД " + str(e))
             return [], [], [], []
 
-    def getPosts(self, user_id = 0):
+    def getPosts(self, user_id=0):
         sql = '''SELECT posts.id, posts.title, posts.time, posts.url, users.username  FROM posts, users WHERE posts.author_id=users.id ORDER BY posts.time DESC'''
         try:
             self.__cur.execute(sql)
@@ -142,7 +137,6 @@ class FDataBase:
             print("Ошибка добавления в БД " + str(e))
             return [], [], [], []
 
-
     def getPost(self, id):
         sql = f"select * from posts where id={id}"
         try:
@@ -152,7 +146,6 @@ class FDataBase:
         except:
             print("Ощибка чтения БД")
         return False
-
 
     def getImg(self, id):
         sql = f"SELECT image FROM posts WHERE id='{id}'"
@@ -185,6 +178,7 @@ class FDataBase:
         except:
             print("Ощибка чтения БД")
         return False
+
     def getUserName(self, name):
         sql = f"select * from users where username='{name}'"
         try:
@@ -194,6 +188,7 @@ class FDataBase:
         except:
             print("Ощибка чтения БД")
         return False
+
     def addLike(self, post_id, user_id):
         if user_id != 0:
             sql = f"select * from likes where post_id={post_id} and user_id={user_id}"
@@ -217,7 +212,6 @@ class FDataBase:
         print(res)
         return res[0]
 
-
     def getLikedByUser(self, user_id):
         sql = f"SELECT post_id, count(*) FROM likes WHERE user_id = {user_id} GROUP BY post_id ORDER BY post_id DESC"
         self.__cur.execute(sql)
@@ -226,6 +220,7 @@ class FDataBase:
             return res
         else:
             return []
+
     def getLikes(self):
         sql = "SELECT post_id, count(*) FROM likes GROUP BY post_id ORDER BY post_id DESC"
         self.__cur.execute(sql)
@@ -265,4 +260,3 @@ class User:
 
     def getName(self):
         return self.__username
-

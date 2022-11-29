@@ -1,6 +1,7 @@
 from flask_login import UserMixin
 from app.db_classes.functions import secondsToDate
 
+
 class UserLogin(UserMixin):
     def fromDB(self, user_id, db):
         self.__user = db.getUserId(user_id)
@@ -18,4 +19,3 @@ class UserLogin(UserMixin):
 
     def get_username(self):
         return self.__user['username']
-
